@@ -1,0 +1,9 @@
+.token
+*.token
+*.secret
+.env
+TestResults/
+testResults.xml
+coverage.xml
+out/
+*.log

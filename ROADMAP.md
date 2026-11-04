@@ -1,0 +1,111 @@
+# Roadmap
+
+Status key: **Done** built and tested against a tenant. **Planned** not built yet. Routes marked *undocumented* work but are not in the public API reference and may change.
+
+All paths are under `<BaseURI>/EPM/API`.
+
+## Session
+
+| Command | API | Status |
+| --- | --- | --- |
+| New-EPMSession | `POST https://<TenantId>.id.cyberark.cloud/oauth2/token/<WebAppId>` | Done |
+| Get-EPMSession / Use-EPMSession / Close-EPMSession | local | Done |
+| New-EPMSession -Legacy | `POST /Auth/EPM/Logon` on the dispatcher | Planned |
+| Get-EPMServerVersion | `GET /Server/Version` | Planned |
+
+## Sets and accounts
+
+| Command | API | Notes | Status |
+| --- | --- | --- | --- |
+| Get-EPMSet | `GET /Sets` | paged | Done |
+| Get-EPMAccountUser | `GET /Account/Users` | | Planned |
+| Add-EPMAccountUserSet | `POST /Account/Users/Bind` | ShouldProcess | Planned |
+| Get-EPMAccountAdminAudit | `GET /Account/AdminAudit` | `-DateFrom` | Planned |
+| Set-EPMUserPassword | `POST /Users/Me/ChangePassword` | legacy auth only | Planned |
+
+## Endpoints
+
+| Command | API | Notes | Status |
+| --- | --- | --- | --- |
+| Get-EPMEndpoint | `POST /Sets/{SetId}/Endpoints/search` | filter, paging, `-Platform`, `-Name` | Done |
+| Get-EPMEndpoint -EndpointId | `POST /Sets/{SetId}/Endpoints/{Id}/search` | `-InventoryType`; bad ID gives 500 | Done |
+| Get-EPMEndpointInventory | `POST /Sets/{SetId}/Endpoints/inventory/{Type}` | many endpoints | Planned |
+| Get-EPMEndpointSummary | `GET /Sets/{SetId}/Endpoints/Summary` | *undocumented* | Planned |
+| Update-EPMEndpoint | `POST /Sets/{SetId}/Endpoints/upgrade` | ShouldProcess High | Planned |
+| Move-EPMEndpoint | `POST /Sets/{SetId}/Endpoints/moveset` | async; endpoint gets a new ID in the target set; ShouldProcess High | Planned |
+| Remove-EPMEndpoint | `POST /Sets/{SetId}/Endpoints/delete` | ShouldProcess High | Planned |
+| Uninstall-EPMEndpoint | `POST /Sets/{SetId}/Endpoints/uninstall` | ShouldProcess High | Planned |
+| Get-EPMComputer | `GET /Sets/{SetId}/Computers` | legacy | Planned |
+| Get-EPMComputerGroup | `GET /Sets/{SetId}/ComputerGroups` | legacy | Planned |
+
+## Endpoint groups
+
+| Command | API | Notes | Status |
+| --- | --- | --- | --- |
+| Get-EPMEndpointGroup | `POST /v2/Sets/{SetId}/Endpoints/groups/search` | v2 preferred, v1 fallback | Planned |
+| Get-EPMEndpointGroupValue | `POST /Sets/{SetId}/Endpoints/Groups/values/search` | | Planned |
+| New-EPMEndpointGroup | `POST /Sets/{SetId}/Endpoints/Groups` | | Planned |
+| Set-EPMEndpointGroup | `PUT /Sets/{SetId}/Endpoints/groups` | | Planned |
+| Remove-EPMEndpointGroup | `POST /Sets/{SetId}/Endpoints/groups/delete` | by filter; ShouldProcess High | Planned |
+| Add-EPMEndpointGroupMember | `POST .../Groups/{GroupId}/members`, `.../members/ids`, `.../members/{Id}` | parameter sets for filter, IDs, one ID; JSON with `{}` body on single ID | Planned |
+| Remove-EPMEndpointGroupMember | `POST .../members/remove`, `.../members/ids/remove`, `DELETE .../members/{Id}` | ShouldProcess | Planned |
+
+## Policies
+
+| Command | API | Notes | Status |
+| --- | --- | --- | --- |
+| Get-EPMPolicy | `POST /Sets/{SetId}/Policies/Server/Search`, `GET .../Server/{Id}` | empty body for all | Done |
+| New-EPMPolicy | `POST /Sets/{SetId}/Policies/Server` | | Planned |
+| Set-EPMPolicy | `PUT /Sets/{SetId}/Policies/Server/{Id}` | | Planned |
+| Remove-EPMPolicy | `DELETE /Sets/{SetId}/Policies/Server/{Id}` | ShouldProcess High | Planned |
+| Export-EPMPolicy | `POST /Sets/{SetId}/Policies/Server/Export` | *undocumented* | Planned |
+| Get-EPMPolicyElevation / Set-EPMPolicyElevation | `/Sets/{SetId}/Policies/Server/Elevate` | | Planned |
+| Get-EPMApplicationGroup | `POST .../Policies/ApplicationGroups/Search`, `GET .../{Id}` | | Planned |
+| New-, Set-, Remove-EPMApplicationGroup | `/Sets/{SetId}/Policies/ApplicationGroups` | | Planned |
+| Get-EPMAgentConfiguration | `POST .../Policies/AgentConfiguration/Search`, `GET .../{Id}`, `GET .../Default` | | Planned |
+| New-, Set-, Remove-EPMAgentConfiguration | `/Sets/{SetId}/Policies/AgentConfiguration` | | Planned |
+| Get-EPMThreatProtectionPolicy | *undocumented* | | Planned |
+| Get-EPMPolicyRecommendation | *undocumented* | | Planned |
+
+## Events and audit
+
+| Command | API | Notes | Status |
+| --- | --- | --- | --- |
+| Get-EPMEvent | `POST /Sets/{SetId}/Events/Search`, `GET /Events/{Id}` | `-DateFrom`, `-EventType`, paging | Planned |
+| Get-EPMEventAggregation | `POST /Sets/{SetId}/Events/aggregations/search` | | Planned |
+| Get-EPMPolicyAudit | `POST /Sets/{SetId}/policyaudits/search` | | Planned |
+| Get-EPMPolicyAuditAggregation | `POST /Sets/{SetId}/policyaudits/aggregations/search` | | Planned |
+| Get-EPMSignInAudit | `POST /Sets/{SetId}/signinaudits/search` | | Planned |
+| Get-EPMSignInAuditAggregation | `POST /Sets/{SetId}/signinaudits/aggregations/search` | | Planned |
+| Get-EPMAdminAudit | `GET /Sets/{SetId}/AdminAudit` | `-DateFrom` required | Planned |
+| Get-EPMVideo | `POST /Sets/{SetId}/Videos/Search` | | Planned |
+
+## Application catalog
+
+| Command | API | Status |
+| --- | --- | --- |
+| Get-EPMApplicationCatalog | `POST /Sets/{SetId}/Files/Aggregations/search` | Planned |
+| Get-EPMFileInstance | `POST /Sets/{SetId}/Files/FileInstances/Search` | Planned |
+
+## Download center
+
+| Command | API | Status |
+| --- | --- | --- |
+| Get-EPMAgentPackage | `POST /Sets/{SetId}/packages/search` | Planned |
+| Get-EPMEndpointPackage | `GET /Sets/{SetId}/Endpoints/Packages` | Planned |
+| Get-EPMPackageConfiguration | `GET /Sets/{SetId}/packages/configuration` | Planned |
+| Get-EPMPackageUrl | `GET /Sets/{SetId}/packages/{Id}/Url` | Planned |
+
+## Reports
+
+| Command | API | Status |
+| --- | --- | --- |
+| New-EPMReport | `POST /Sets/{SetId}/Reports` *undocumented* | Planned |
+
+## Module work
+
+- Format files for default table views
+- Filter builder helper with safe quoting
+- Token expiry check from the JWT `exp` claim with automatic renewal for client credentials
+- CHANGELOG, issue and pull request templates
+- Build step that packages the module, and optional PowerShell Gallery publishing

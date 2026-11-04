@@ -1,0 +1,70 @@
+# psEPM
+
+PowerShell module for the Endpoint Privilege Manager (EPM) REST API.
+
+API documentation: https://docs.cyberark.com/epm/latest/en/content/landingpages/lpdeveloper.htm
+
+Status: early scaffold. Session commands and three read commands work. See [ROADMAP.md](ROADMAP.md) for the planned command set and [DESIGN.md](DESIGN.md) for how the module is built.
+
+## Requirements
+
+- Windows PowerShell 5.1 or PowerShell 7+
+- An Identity service user (OAuth2 confidential client) with an EPM role, the Identity tenant ID, and the web app ID
+
+## Install
+
+```powershell
+git clone <this repo>
+Import-Module ./psEPM/psEPM/psEPM.psd1
+```
+
+## Use
+
+```powershell
+$cred = Get-Credential
+New-EPMSession -TenantId 'abc1234' -WebAppId 'mywebapp' -Credential $cred -BaseURI 'https://api-na.epm.cyberark.cloud'
+
+Get-EPMSet
+Get-EPMSet -Name 'Lab*' | Get-EPMEndpoint -Platform Windows
+Get-EPMSet -Name 'Lab*' | Get-EPMEndpoint -First 1 | Get-EPMEndpoint -InventoryType OsInfo, Hardware
+Get-EPMSet -Name 'Lab*' | Get-EPMPolicy -Name 'Elevate'
+
+Get-EPMSession
+Close-EPMSession
+```
+
+Use the regional EPM API URL for your tenant as `-BaseURI` (for example `https://api-na.epm.cyberark.cloud`).
+
+To test with a token you already have:
+
+```powershell
+$token = Read-Host 'Token' -AsSecureString
+New-EPMSession -Token $token -BaseURI 'https://api-na.epm.cyberark.cloud'
+```
+
+## Commands
+
+| Command | What it does |
+| --- | --- |
+| New-EPMSession | Gets a token and starts a session |
+| Get-EPMSession | Shows the current session |
+| Use-EPMSession | Switches to a saved session |
+| Close-EPMSession | Clears the session |
+| Get-EPMSet | Lists sets |
+| Get-EPMEndpoint | Searches endpoints or gets one endpoint's details |
+| Get-EPMPolicy | Searches policies or gets one policy's details |
+
+Command help is in [docs/commands](docs/commands).
+
+## Tests
+
+```powershell
+Install-Module Pester -MinimumVersion 5.5.0 -Scope CurrentUser
+Invoke-Pester ./Tests
+```
+
+The tests use mocks and never call a tenant.
+
+## CI
+
+The GitHub Actions workflow is in `build/ci.yml`. Copy it to `.github/workflows/ci.yml` to turn it on. It runs PSScriptAnalyzer and Pester on Windows PowerShell 5.1 and PowerShell 7.
