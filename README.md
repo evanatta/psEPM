@@ -68,3 +68,7 @@ The tests use mocks and never call a tenant.
 ## CI
 
 The GitHub Actions workflow is in `.github/workflows/ci.yml`. It runs PSScriptAnalyzer and Pester on Windows PowerShell 5.1 and PowerShell 7.
+
+## Credit
+
+The layout and conventions of this module are inspired by [psPAS](https://github.com/pspete/psPAS) by Pete Maan, which is MIT licensed.
