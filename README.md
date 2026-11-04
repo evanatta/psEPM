@@ -67,4 +67,4 @@ The tests use mocks and never call a tenant.
 
 ## CI
 
-The GitHub Actions workflow is in `build/ci.yml`. Copy it to `.github/workflows/ci.yml` to turn it on. It runs PSScriptAnalyzer and Pester on Windows PowerShell 5.1 and PowerShell 7.
+The GitHub Actions workflow is in `.github/workflows/ci.yml`. It runs PSScriptAnalyzer and Pester on Windows PowerShell 5.1 and PowerShell 7.
