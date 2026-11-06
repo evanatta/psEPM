@@ -33,6 +33,11 @@ Get-EPMSet -Name 'Lab*' | Get-EPMEndpointGroup -Type Dynamic
 Get-EPMSet -Name 'Lab*' | Get-EPMPolicy -Name 'Elevate'
 Get-EPMSet -Name 'Lab*' | Get-EPMAgentPackage -Platform Windows -Latest | Get-EPMPackageUrl
 
+$group = New-EPMEndpointGroup -SetId $setId -Name 'Lab group' -Type Static -Description 'Lab machines'
+$group | Set-EPMEndpointGroup -Description 'Lab machines, floor 2'
+$group | Remove-EPMEndpointGroup -WhatIf
+$group | Remove-EPMEndpointGroup
+
 Get-EPMSession
 Close-EPMSession
 ```
@@ -60,6 +65,9 @@ New-EPMSession -Token $token -BaseURI 'https://api-na.epm.cyberark.cloud'
 | Get-EPMEndpointSummary | Counts endpoints by agent version and platform |
 | Get-EPMEndpointGroup | Searches endpoint groups |
 | Get-EPMEndpointGroupValue | Lists endpoint attribute values for dynamic group filters |
+| New-EPMEndpointGroup | Creates a static or dynamic endpoint group |
+| Set-EPMEndpointGroup | Updates an endpoint group's name, description, or filter |
+| Remove-EPMEndpointGroup | Deletes endpoint groups by ID or filter |
 | Get-EPMPolicy | Searches policies or gets one policy's details |
 | Get-EPMAgentPackage | Lists agent packages available to a set |
 | Get-EPMEndpointPackage | Lists agent packages available for endpoints in a set |

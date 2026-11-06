@@ -13,7 +13,7 @@ The module layout and conventions are modeled on psPAS (https://github.com/pspet
 | One private REST wrapper (`Invoke-PASRestMethod`) that every command calls, sets JSON content type, parses API errors into a terminating error | `Invoke-EPMRestMethod`, plus throttle retry with exponential backoff |
 | Approved verbs and a product noun prefix (`Get-PASAccount`, `Add-PASSafeMember`) | `Verb-EPMNoun`, checked by a test |
 | Parameter sets per API variation, `ValueFromPipelineByPropertyName` on IDs so `Get-X | Get-Y` works | Same. Output objects carry `SetId`, `EndpointId`, `PolicyId` so they pipe into the next command |
-| `SupportsShouldProcess` with `ConfirmImpact` High on destructive commands | Planned for every write command; `-WhatIf` and `-Confirm` required on Move, Remove, Uninstall, Upgrade |
+| `SupportsShouldProcess` with `ConfirmImpact` High on destructive commands | Every write command. Create and update use Medium, delete uses High. Move, Uninstall, and Upgrade will use High |
 | Custom type names on output and `.Formats.ps1xml` default views | Type names added now (`psEPM.Set`, `psEPM.Endpoint`, `psEPM.Policy`); format files planned |
 | Query string and filter helpers (`ConvertTo-QueryString`, `ConvertTo-FilterString`) | `ConvertTo-EPMQueryString`; filter builder planned |
 | Pester tests per command with mocked REST calls | Same, Pester 5, no live calls in the repo |
@@ -45,5 +45,8 @@ The module layout and conventions are modeled on psPAS (https://github.com/pspet
 - No comments and no comment-based help in code files. Command help lives in `docs/commands/*.md`. A test fails if a code file contains a comment token.
 - Windows PowerShell 5.1 compatible: no ternary, no null-coalescing, no `ForEach-Object -Parallel`, no `-SkipCertificateCheck`.
 - Secrets come in as `PSCredential` or `SecureString`. The token lives only in module scope and is not shown by `Get-EPMSession` unless `-IncludeToken` is used.
-- Write commands will default to `ConfirmImpact = 'High'` for anything that moves, deletes, uninstalls, or upgrades endpoints.
+- Write commands default to `ConfirmImpact = 'High'` for anything that moves, deletes, uninstalls, or upgrades endpoints.
+- Write command pattern: validate parameters and build the body first, then call `$PSCmdlet.ShouldProcess(<target>, <action>)` and return if it is false, then call the API. The target names the set and the object or filter, so `-WhatIf` output is readable. Nothing is sent to the API under `-WhatIf`, including reads.
+- Commands that delete by filter never send an empty filter. They require an ID or a non-empty filter and throw otherwise.
+- Update calls that replace the whole object read the current object first and merge the changed parameters, so omitted fields are kept.
 - MIT license, matching psPAS.

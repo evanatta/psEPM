@@ -44,9 +44,9 @@ All paths are under `<BaseURI>/API` on a regional API host such as `https://api-
 | --- | --- | --- | --- |
 | Get-EPMEndpointGroup | `POST /v2/Sets/{SetId}/Endpoints/groups/search` | v2 preferred, v1 on 404; `filter` required, empty for all; no member list | Done |
 | Get-EPMEndpointGroupValue | `POST /Sets/{SetId}/Endpoints/Groups/values/search` | `entity EQ <name>`; array of `{ value }` | Done |
-| New-EPMEndpointGroup | `POST /Sets/{SetId}/Endpoints/Groups` | | Planned |
-| Set-EPMEndpointGroup | `PUT /Sets/{SetId}/Endpoints/groups` | | Planned |
-| Remove-EPMEndpointGroup | `POST /Sets/{SetId}/Endpoints/groups/delete` | by filter; ShouldProcess High | Planned |
+| New-EPMEndpointGroup | `POST /Sets/{SetId}/Endpoints/Groups` | Dynamic requires `-Filter` | Done |
+| Set-EPMEndpointGroup | `PUT /Sets/{SetId}/Endpoints/groups` | full replace; reads and merges first; type cannot change | Done |
+| Remove-EPMEndpointGroup | `POST /Sets/{SetId}/Endpoints/groups/delete` | by ID or filter; empty filter rejected; ShouldProcess High | Done |
 | Add-EPMEndpointGroupMember | `POST .../Groups/{GroupId}/members`, `.../members/ids`, `.../members/{Id}` | parameter sets for filter, IDs, one ID; JSON with `{}` body on single ID | Planned |
 | Remove-EPMEndpointGroupMember | `POST .../members/remove`, `.../members/ids/remove`, `DELETE .../members/{Id}` | ShouldProcess | Planned |
 
