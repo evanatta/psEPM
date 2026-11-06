@@ -15,3 +15,5 @@ APIs: `POST /Sets/{SetId}/Policies/Server/Search` and `GET /Sets/{SetId}/Policie
 | First | Stop after this many results |
 
 An empty body returns all policies. `GET` on the search URL returns 400.
+
+Search results carry `PolicyId` from the API. Details by ID are the API wrapper `{ CreatedDate, ModifiedDate, Order, OsType, Policy }` with the added `SetId` and `PolicyId` properties, so both pipe into `Set-EPMPolicy` and `Remove-EPMPolicy`.

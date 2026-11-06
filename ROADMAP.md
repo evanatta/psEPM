@@ -55,9 +55,9 @@ All paths are under `<BaseURI>/API` on a regional API host such as `https://api-
 | Command | API | Notes | Status |
 | --- | --- | --- | --- |
 | Get-EPMPolicy | `POST /Sets/{SetId}/Policies/Server/Search`, `GET .../Server/{Id}` | empty body for all | Done |
-| New-EPMPolicy | `POST /Sets/{SetId}/Policies/Server` | | Planned |
-| Set-EPMPolicy | `PUT /Sets/{SetId}/Policies/Server/{Id}` | | Planned |
-| Remove-EPMPolicy | `DELETE /Sets/{SetId}/Policies/Server/{Id}` | ShouldProcess High | Planned |
+| New-EPMPolicy | `POST /Sets/{SetId}/Policies/Server` | file name body as in the examples, inactive by default; or a full definition | Done |
+| Set-EPMPolicy | `PUT /Sets/{SetId}/Policies/Server/{Id}` | full replace, no wrapper; merge reads first | Done |
+| Remove-EPMPolicy | `DELETE /Sets/{SetId}/Policies/Server/{Id}` | 204; GET by ID still answers until a second delete; ShouldProcess High | Done |
 | Export-EPMPolicy | `POST /Sets/{SetId}/Policies/Server/Export` | *undocumented* | Planned |
 | Get-EPMPolicyElevation / Set-EPMPolicyElevation | `/Sets/{SetId}/Policies/Server/Elevate` | | Planned |
 | Get-EPMApplicationGroup | `POST .../Policies/ApplicationGroups/Search`, `GET .../{Id}` | | Planned |

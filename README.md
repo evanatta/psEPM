@@ -40,6 +40,11 @@ Get-EPMEndpoint -SetId $setId -Name 'PC0' | Remove-EPMEndpointGroupMember -Group
 $group | Remove-EPMEndpointGroup -WhatIf
 $group | Remove-EPMEndpointGroup
 
+$policy = New-EPMPolicy -SetId $setId -Name 'Allow notepad' -FileName 'notepad.exe' -Description 'Inactive test'
+$policy | Set-EPMPolicy -Description 'Inactive test, reviewed'
+$policy | Remove-EPMPolicy -WhatIf
+$policy | Remove-EPMPolicy
+
 Get-EPMSession
 Close-EPMSession
 ```
@@ -73,6 +78,9 @@ New-EPMSession -Token $token -BaseURI 'https://api-na.epm.cyberark.cloud'
 | Add-EPMEndpointGroupMember | Adds endpoints to a static group by ID or filter |
 | Remove-EPMEndpointGroupMember | Removes endpoints from a static group by ID or filter |
 | Get-EPMPolicy | Searches policies or gets one policy's details |
+| New-EPMPolicy | Creates a policy, inactive by default |
+| Set-EPMPolicy | Updates a policy by merging fields or replacing the definition |
+| Remove-EPMPolicy | Deletes policies |
 | Get-EPMAgentPackage | Lists agent packages available to a set |
 | Get-EPMEndpointPackage | Lists agent packages available for endpoints in a set |
 | Get-EPMPackageConfiguration | Gets the installation configuration and key for a package |

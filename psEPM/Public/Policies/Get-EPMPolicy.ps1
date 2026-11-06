@@ -32,6 +32,7 @@ function Get-EPMPolicy {
         if ($PSCmdlet.ParameterSetName -eq 'ById') {
             $item = Invoke-EPMRestMethod -Method GET -Path ('Sets/{0}/Policies/Server/{1}' -f $SetId, $PolicyId)
             $item | Add-Member -MemberType NoteProperty -Name SetId -Value $SetId -Force
+            $item | Add-Member -MemberType NoteProperty -Name PolicyId -Value $PolicyId -Force
             $item.PSObject.TypeNames.Insert(0, 'psEPM.PolicyDetail')
             return $item
         }
