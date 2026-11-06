@@ -42,8 +42,8 @@ All paths are under `<BaseURI>/API` on a regional API host such as `https://api-
 
 | Command | API | Notes | Status |
 | --- | --- | --- | --- |
-| Get-EPMEndpointGroup | `POST /v2/Sets/{SetId}/Endpoints/groups/search` | v2 preferred, v1 fallback | Planned |
-| Get-EPMEndpointGroupValue | `POST /Sets/{SetId}/Endpoints/Groups/values/search` | | Planned |
+| Get-EPMEndpointGroup | `POST /v2/Sets/{SetId}/Endpoints/groups/search` | v2 preferred, v1 on 404; `filter` required, empty for all; no member list | Done |
+| Get-EPMEndpointGroupValue | `POST /Sets/{SetId}/Endpoints/Groups/values/search` | `entity EQ <name>`; array of `{ value }` | Done |
 | New-EPMEndpointGroup | `POST /Sets/{SetId}/Endpoints/Groups` | | Planned |
 | Set-EPMEndpointGroup | `PUT /Sets/{SetId}/Endpoints/groups` | | Planned |
 | Remove-EPMEndpointGroup | `POST /Sets/{SetId}/Endpoints/groups/delete` | by filter; ShouldProcess High | Planned |

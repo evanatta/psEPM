@@ -29,6 +29,7 @@ Get-EPMSet -Name 'Lab*' | Get-EPMEndpoint -Platform Windows
 Get-EPMSet -Name 'Lab*' | Get-EPMEndpoint -First 1 | Get-EPMEndpoint -InventoryType OsInfo, Hardware
 Get-EPMSet -Name 'Lab*' | Get-EPMEndpointInventory -InventoryType OsInfo
 Get-EPMSet -Name 'Lab*' | Get-EPMEndpointSummary
+Get-EPMSet -Name 'Lab*' | Get-EPMEndpointGroup -Type Dynamic
 Get-EPMSet -Name 'Lab*' | Get-EPMPolicy -Name 'Elevate'
 Get-EPMSet -Name 'Lab*' | Get-EPMAgentPackage -Platform Windows -Latest | Get-EPMPackageUrl
 
@@ -57,6 +58,8 @@ New-EPMSession -Token $token -BaseURI 'https://api-na.epm.cyberark.cloud'
 | Get-EPMEndpoint | Searches endpoints or gets one endpoint's details |
 | Get-EPMEndpointInventory | Gets one inventory section for many endpoints |
 | Get-EPMEndpointSummary | Counts endpoints by agent version and platform |
+| Get-EPMEndpointGroup | Searches endpoint groups |
+| Get-EPMEndpointGroupValue | Lists endpoint attribute values for dynamic group filters |
 | Get-EPMPolicy | Searches policies or gets one policy's details |
 | Get-EPMAgentPackage | Lists agent packages available to a set |
 | Get-EPMEndpointPackage | Lists agent packages available for endpoints in a set |

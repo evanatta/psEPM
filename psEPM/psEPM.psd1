@@ -16,6 +16,8 @@
         'Get-EPMEndpoint',
         'Get-EPMEndpointInventory',
         'Get-EPMEndpointSummary',
+        'Get-EPMEndpointGroup',
+        'Get-EPMEndpointGroupValue',
         'Get-EPMPolicy',
         'Get-EPMAgentPackage',
         'Get-EPMEndpointPackage',
