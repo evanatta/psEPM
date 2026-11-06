@@ -13,6 +13,7 @@
         'Use-EPMSession',
         'Close-EPMSession',
         'Get-EPMSet',
+        'ConvertTo-EPMFilter',
         'Get-EPMEndpoint',
         'Get-EPMEndpointInventory',
         'Get-EPMEndpointSummary',
@@ -59,6 +60,7 @@
         'Get-EPMPackageConfiguration',
         'Get-EPMPackageUrl'
     )
+    FormatsToProcess     = @('psEPM.Format.ps1xml')
     CmdletsToExport      = @()
     VariablesToExport    = @()
     AliasesToExport      = @()

@@ -28,6 +28,8 @@ Get-EPMSet
 Get-EPMSet -Name 'Lab*' | Get-EPMEndpoint -Platform Windows
 Get-EPMSet -Name 'Lab*' | Get-EPMEndpoint -First 1 | Get-EPMEndpoint -InventoryType OsInfo, Hardware
 Get-EPMSet -Name 'Lab*' | Get-EPMEndpointInventory -InventoryType OsInfo
+$filter = ConvertTo-EPMFilter -Property name -Operator CONTAINS -Value 'APITEST'
+Get-EPMEndpoint -SetId $setId -Filter $filter
 Get-EPMSet -Name 'Lab*' | Get-EPMEndpointSummary
 Get-EPMSet -Name 'Lab*' | Get-EPMEndpointGroup -Type Dynamic
 Get-EPMSet -Name 'Lab*' | Get-EPMPolicy -Name 'Elevate'
@@ -102,6 +104,7 @@ New-EPMSession -Token $token -BaseURI 'https://api-na.epm.cyberark.cloud'
 | Use-EPMSession | Switches to a saved session |
 | Close-EPMSession | Clears the session |
 | Get-EPMSet | Lists sets |
+| ConvertTo-EPMFilter | Builds a filter string with safe quoting |
 | Get-EPMEndpoint | Searches endpoints or gets one endpoint's details |
 | Get-EPMEndpointInventory | Gets one inventory section for many endpoints |
 | Get-EPMEndpointSummary | Counts endpoints by agent version and platform |

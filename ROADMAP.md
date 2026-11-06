@@ -105,8 +105,8 @@ All paths are under `<BaseURI>/API` on a regional API host such as `https://api-
 
 ## Module work
 
-- Format files for default table views
-- Filter builder helper with safe quoting
-- Token expiry check from the JWT `exp` claim with automatic renewal for client credentials
+- Done: format file with default table views (`psEPM.Format.ps1xml`)
+- Done: filter builder with safe quoting (`ConvertTo-EPMFilter`)
+- Done: token expiry check from the JWT `exp` claim with automatic renewal for client credentials
 - CHANGELOG, issue and pull request templates
 - Build step that packages the module, and optional PowerShell Gallery publishing

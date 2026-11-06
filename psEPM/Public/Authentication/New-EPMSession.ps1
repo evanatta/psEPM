@@ -27,27 +27,9 @@ function New-EPMSession {
 
     if ($PSCmdlet.ParameterSetName -eq 'ClientCredentials') {
         $user = $Credential.UserName
-        $pair = '{0}:{1}' -f $user, $Credential.GetNetworkCredential().Password
-        $basic = [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes($pair))
-        $pair = $null
-        $tokenRequest = @{
-            Uri         = 'https://{0}.id.cyberark.cloud/oauth2/token/{1}' -f $TenantId, $WebAppId
-            Method      = 'POST'
-            Headers     = @{ Authorization = 'Basic {0}' -f $basic }
-            ContentType = 'application/x-www-form-urlencoded'
-            Body        = 'grant_type=client_credentials'
-            ErrorAction = 'Stop'
-        }
-        try {
-            $response = Invoke-RestMethod @tokenRequest
-        } catch {
-            $detail = Get-EPMErrorDetail -ErrorRecord $_
-            throw ('Identity token request failed. HTTP {0} {1}' -f $detail.StatusCode, $detail.Message)
-        }
-        if ([string]::IsNullOrEmpty($response.access_token)) {
-            throw 'Identity token response did not contain an access_token.'
-        }
-        $script:EPMSession = New-EPMSessionObject -BaseURI $BaseURI -Token $response.access_token -AuthMethod 'IdentityClientCredentials' -User $user
+        $accessToken = Get-EPMIdentityToken -TenantId $TenantId -WebAppId $WebAppId -Credential $Credential
+        $script:EPMSession = New-EPMSessionObject -BaseURI $BaseURI -Token $accessToken -AuthMethod 'IdentityClientCredentials' -User $user -TenantId $TenantId -WebAppId $WebAppId -Credential $Credential
+        $accessToken = $null
     } else {
         $plain = (New-Object System.Management.Automation.PSCredential('token', $Token)).GetNetworkCredential().Password
         $script:EPMSession = New-EPMSessionObject -BaseURI $BaseURI -Token $plain -AuthMethod 'Token'

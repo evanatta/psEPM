@@ -8,7 +8,7 @@ function Get-EPMSession {
     if ($null -eq $script:EPMSession) {
         return
     }
-    $properties = 'BaseURI', 'ApiURI', 'AuthMethod', 'User', 'StartTime', 'LastCommand', 'LastCommandTime', 'LastError'
+    $properties = 'BaseURI', 'ApiURI', 'AuthMethod', 'User', 'TokenExpiresAt', 'StartTime', 'LastCommand', 'LastCommandTime', 'LastError'
     if ($IncludeToken) {
         $properties += 'Token'
     }
