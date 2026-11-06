@@ -21,6 +21,6 @@ function ConvertTo-EPMEventFilter {
     if ($null -ne $DateTo) { $clauses.Add(('arrivalTime LE {0}' -f ([datetime]$DateTo).ToUniversalTime().ToString('yyyy-MM-ddTHH:mm:ssZ', $culture))) }
     $types = @($EventType | Where-Object { $_ } | Select-Object -Unique)
     if ($types.Count -gt 0) { $clauses.Add(('eventType IN {0}' -f ($types -join ','))) }
-    if ($Filter) { $clauses.Add($Filter) }
+    if (-not [string]::IsNullOrWhiteSpace($Filter)) { $clauses.Add($Filter) }
     $clauses -join ' AND '
 }

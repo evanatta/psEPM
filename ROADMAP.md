@@ -73,8 +73,8 @@ All paths are under `<BaseURI>/API` on a regional API host such as `https://api-
 | --- | --- | --- | --- |
 | Get-EPMEvent | `POST /Sets/{SetId}/Events/Search` | `-DateFrom`, `-DateTo`, `-EventType` (`IN`), cursor paging. No GET by ID exists | Done |
 | Get-EPMEventAggregation | `POST /Sets/{SetId}/events/aggregations/search` | One row per application and event type. Cursor does not advance live | Done |
-| Get-EPMPolicyAudit | `POST /Sets/{SetId}/policyaudits/search` | | Planned |
-| Get-EPMPolicyAuditAggregation | `POST /Sets/{SetId}/policyaudits/aggregations/search` | | Planned |
+| Get-EPMPolicyAudit | `POST /Sets/{SetId}/policyaudits/search` | `-DateFrom`, `-DateTo`, `-EventType` (`IN`), cursor paging. No GET by ID exists | Done |
+| Get-EPMPolicyAuditAggregation | `POST /Sets/{SetId}/policyaudits/aggregations/search` | One row per application and event type. Never sends an empty filter. Cursor does not advance live | Done |
 | Get-EPMSignInAudit | `POST /Sets/{SetId}/signinaudits/search` | | Planned |
 | Get-EPMSignInAuditAggregation | `POST /Sets/{SetId}/signinaudits/aggregations/search` | | Planned |
 | Get-EPMAdminAudit | `GET /Sets/{SetId}/AdminAudit` | `-DateFrom` required | Planned |

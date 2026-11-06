@@ -37,6 +37,8 @@
         'Get-EPMPolicyRecommendation',
         'Get-EPMEvent',
         'Get-EPMEventAggregation',
+        'Get-EPMPolicyAudit',
+        'Get-EPMPolicyAuditAggregation',
         'Get-EPMAgentPackage',
         'Get-EPMEndpointPackage',
         'Get-EPMPackageConfiguration',
