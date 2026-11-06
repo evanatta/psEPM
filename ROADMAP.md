@@ -1,6 +1,6 @@
 # Roadmap
 
-Status key: **Done** built and tested against a tenant. **Planned** not built yet. Routes marked *undocumented* work but are not in the public API reference and may change.
+Status key: **Done** built and tested against a tenant. **Planned** not built yet. **Unavailable** the route returns 404 on the regional API host (`/API` and `/EPM/API`, GET and OPTIONS, checked November 2026), so no command is planned until it is reachable. Routes marked *undocumented* work but are not in the public API reference and may change.
 
 All paths are under `<BaseURI>/API` on a regional API host such as `https://api-na.epm.cyberark.cloud`. A tenant manager host uses `<BaseURI>/EPM/API`.
 
@@ -10,18 +10,18 @@ All paths are under `<BaseURI>/API` on a regional API host such as `https://api-
 | --- | --- | --- |
 | New-EPMSession | `POST https://<TenantId>.id.cyberark.cloud/oauth2/token/<WebAppId>` | Done |
 | Get-EPMSession / Use-EPMSession / Close-EPMSession | local | Done |
-| New-EPMSession -Legacy | `POST /Auth/EPM/Logon` on the dispatcher | Planned |
-| Get-EPMServerVersion | `GET /Server/Version` | Planned |
+| New-EPMSession -Legacy | `POST /Auth/EPM/Logon` on the dispatcher | Unavailable |
+| Get-EPMServerVersion | `GET /Server/Version` | Unavailable |
 
 ## Sets and accounts
 
 | Command | API | Notes | Status |
 | --- | --- | --- | --- |
 | Get-EPMSet | `GET /Sets` | paged | Done |
-| Get-EPMAccountUser | `GET /Account/Users` | | Planned |
-| Add-EPMAccountUserSet | `POST /Account/Users/Bind` | ShouldProcess | Planned |
-| Get-EPMAccountAdminAudit | `GET /Account/AdminAudit` | `-DateFrom` | Planned |
-| Set-EPMUserPassword | `POST /Users/Me/ChangePassword` | legacy auth only | Planned |
+| Get-EPMAccountUser | `GET /Account/Users` | the reference only documents `POST` (create user) | Unavailable |
+| Add-EPMAccountUserSet | `POST /Account/Users/Bind` | ShouldProcess; write route, not probed | Planned |
+| Get-EPMAccountAdminAudit | `GET /Account/AdminAudit` | deprecated in the reference; use SIEM integration | Unavailable |
+| Set-EPMUserPassword | `POST /Users/Me/ChangePassword` | legacy auth only | Unavailable |
 
 ## Endpoints
 
@@ -29,14 +29,14 @@ All paths are under `<BaseURI>/API` on a regional API host such as `https://api-
 | --- | --- | --- | --- |
 | Get-EPMEndpoint | `POST /Sets/{SetId}/Endpoints/search` | filter, paging, `-Platform`, `-Name` | Done |
 | Get-EPMEndpoint -EndpointId | `POST /Sets/{SetId}/Endpoints/{Id}/search` | `-InventoryType`; bad ID gives 500 | Done |
-| Get-EPMEndpointInventory | `POST /Sets/{SetId}/Endpoints/inventory/{Type}` | many endpoints | Planned |
-| Get-EPMEndpointSummary | `GET /Sets/{SetId}/Endpoints/Summary` | *undocumented* | Planned |
+| Get-EPMEndpointInventory | `POST /Sets/{SetId}/Endpoints/inventory/{Type}` | `filter` required, empty for all; array result; filter on `endpointId`, `id` gives 500 | Done |
+| Get-EPMEndpointSummary | `GET /Sets/{SetId}/Endpoints/Summary` | *undocumented* | Done |
 | Update-EPMEndpoint | `POST /Sets/{SetId}/Endpoints/upgrade` | ShouldProcess High | Planned |
 | Move-EPMEndpoint | `POST /Sets/{SetId}/Endpoints/moveset` | async; endpoint gets a new ID in the target set; ShouldProcess High | Planned |
 | Remove-EPMEndpoint | `POST /Sets/{SetId}/Endpoints/delete` | ShouldProcess High | Planned |
 | Uninstall-EPMEndpoint | `POST /Sets/{SetId}/Endpoints/uninstall` | ShouldProcess High | Planned |
-| Get-EPMComputer | `GET /Sets/{SetId}/Computers` | legacy | Planned |
-| Get-EPMComputerGroup | `GET /Sets/{SetId}/ComputerGroups` | legacy | Planned |
+| Get-EPMComputer | `GET /Sets/{SetId}/Computers` | legacy; use Get-EPMEndpoint | Unavailable |
+| Get-EPMComputerGroup | `GET /Sets/{SetId}/ComputerGroups` | legacy; use endpoint groups | Unavailable |
 
 ## Endpoint groups
 

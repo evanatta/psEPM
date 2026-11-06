@@ -8,7 +8,7 @@ function Invoke-EPMPagedRequest {
         [Parameter(Mandatory = $true)]
         [string]$Path,
 
-        [Parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $false)]
         [string]$ItemProperty,
 
         [Parameter(Mandatory = $false)]
@@ -42,7 +42,11 @@ function Invoke-EPMPagedRequest {
         if ($PSBoundParameters.ContainsKey('Body')) { $request.Body = $Body }
 
         $response = Invoke-EPMRestMethod @request
-        $items = @($response.$ItemProperty)
+        if ($ItemProperty) {
+            $items = @($response.$ItemProperty)
+        } else {
+            $items = @($response)
+        }
         foreach ($item in $items) {
             $item
             $returned++

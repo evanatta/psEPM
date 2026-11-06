@@ -14,6 +14,8 @@
         'Close-EPMSession',
         'Get-EPMSet',
         'Get-EPMEndpoint',
+        'Get-EPMEndpointInventory',
+        'Get-EPMEndpointSummary',
         'Get-EPMPolicy',
         'Get-EPMAgentPackage',
         'Get-EPMEndpointPackage',
