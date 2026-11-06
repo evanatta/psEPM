@@ -31,6 +31,7 @@
         'New-EPMPolicy',
         'Set-EPMPolicy',
         'Remove-EPMPolicy',
+        'Set-EPMPolicyElevation',
         'Export-EPMPolicy',
         'Get-EPMApplicationGroup',
         'New-EPMApplicationGroup',

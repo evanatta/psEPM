@@ -19,7 +19,7 @@ All paths are under `<BaseURI>/API` on a regional API host such as `https://api-
 | --- | --- | --- | --- |
 | Get-EPMSet | `GET /Sets` | paged | Done |
 | Get-EPMAccountUser | `GET /Account/Users` | the reference only documents `POST` (create user) | Unavailable |
-| Add-EPMAccountUserSet | `POST /Account/Users/Bind` | ShouldProcess; write route, not probed | Planned |
+| Add-EPMAccountUserSet | `POST /Account/Users/Bind` | GET and OPTIONS return 404 on `/API` and `/EPM/API` (checked November 2026); no POST was sent | Unavailable |
 | Get-EPMAccountAdminAudit | `GET /Account/AdminAudit` | deprecated in the reference; use SIEM integration | Unavailable |
 | Set-EPMUserPassword | `POST /Users/Me/ChangePassword` | legacy auth only | Unavailable |
 
@@ -59,7 +59,8 @@ All paths are under `<BaseURI>/API` on a regional API host such as `https://api-
 | Set-EPMPolicy | `PUT /Sets/{SetId}/Policies/Server/{Id}` | full replace, no wrapper; merge reads first | Done |
 | Remove-EPMPolicy | `DELETE /Sets/{SetId}/Policies/Server/{Id}` | 204; GET by ID still answers until a second delete; ShouldProcess High | Done |
 | Export-EPMPolicy | `POST /Sets/{SetId}/Policies/Server/Export` | *undocumented*; Computer, User, All; `-OutFile` | Done |
-| Get-EPMPolicyElevation / Set-EPMPolicyElevation | `/Sets/{SetId}/Policies/Server/Elevate` | | Planned |
+| Set-EPMPolicyElevation | `POST` (approve) / `DELETE` (reject) `/Sets/{SetId}/Policies/Server/Elevate` | `Filter` body as in the examples; `SendEmail` false by default; ShouldProcess High; a fake request returns 400; no live approve or reject of a real request has been run | Done |
+| Get-EPMPolicyElevation | `GET /Sets/{SetId}/Policies/Server/Elevate` | no documented GET; GET returns 400 (checked November 2026); use `Get-EPMEvent -EventType ElevationRequest` | Unavailable |
 | Get-EPMApplicationGroup | `POST .../Policies/ApplicationGroups/Search`, `GET .../{Id}` | `PolicyName` filter | Done |
 | New-, Set-, Remove-EPMApplicationGroup | `/Sets/{SetId}/Policies/ApplicationGroups` | no `/Server` in the path; full replace on PUT; GET by ID answers until a second delete | Done |
 | Get-EPMAgentConfiguration | `POST .../Policies/AgentConfiguration/Search`, `GET .../{Id}`, `GET .../Default` | Default is the product template; list PolicyType 45, details 44 | Done |

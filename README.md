@@ -45,6 +45,8 @@ $policy | Set-EPMPolicy -Description 'Inactive test, reviewed'
 $policy | Remove-EPMPolicy -WhatIf
 $policy | Remove-EPMPolicy
 
+Set-EPMPolicyElevation -SetId $setId -AggregatedBy $aggregatedBy -Elevation Approve -WhatIf
+
 Export-EPMPolicy -SetId $setId -GroupType All -OutFile .\policies.epmp
 $appGroup = New-EPMApplicationGroup -SetId $setId -Name 'Editors' -FileName 'notepad.exe' -Description 'Text editors'
 $appGroup | Set-EPMApplicationGroup -Description 'Approved text editors'
@@ -115,6 +117,7 @@ New-EPMSession -Token $token -BaseURI 'https://api-na.epm.cyberark.cloud'
 | Set-EPMPolicy | Updates a policy by merging fields or replacing the definition |
 | Remove-EPMPolicy | Deletes policies |
 | Export-EPMPolicy | Exports a set's policies as an .epmp file |
+| Set-EPMPolicyElevation | Approves or rejects a temporary elevation request |
 | Get-EPMApplicationGroup | Searches application groups or gets one group's details |
 | New-EPMApplicationGroup | Creates an application group |
 | Set-EPMApplicationGroup | Updates an application group |
