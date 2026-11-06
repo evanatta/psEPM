@@ -22,4 +22,4 @@ New-EPMSession -Token <SecureString> -BaseURI <string> [-PassThru]
 
 ## Notes
 
-The token request posts `grant_type=client_credentials&scope=all` to `https://<TenantId>.id.cyberark.cloud/oauth2/token/<WebAppId>` with a Basic header built from `user:secret` (UTF-8, Base64). The token is kept in module scope only and is never written to disk.
+The token request posts `grant_type=client_credentials` to `https://<TenantId>.id.cyberark.cloud/oauth2/token/<WebAppId>` with a Basic header built from `user:secret` (UTF-8, Base64). That matches the example scripts. Use the same regional API URL the examples ask for as `-BaseURI`, for example `https://api-na.epm.cyberark.cloud`. The module then calls `{BaseURI}/API`. If you pass a tenant manager host such as `https://na123.epm.cyberark.com`, it calls `{BaseURI}/EPM/API` instead. The token is kept in module scope only and is never written to disk.

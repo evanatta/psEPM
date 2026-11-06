@@ -14,9 +14,18 @@ function New-EPMSessionObject {
         [string]$User
     )
 
+    $base = $BaseURI.TrimEnd('/')
+    if ($base -match '/API$') {
+        $apiUri = $base
+    } elseif ($base -match '\.epm\.cyberark\.com$') {
+        $apiUri = '{0}/EPM/API' -f $base
+    } else {
+        $apiUri = '{0}/API' -f $base
+    }
+
     $session = [pscustomobject]@{
-        BaseURI         = $BaseURI.TrimEnd('/')
-        ApiURI          = '{0}/EPM/API' -f $BaseURI.TrimEnd('/')
+        BaseURI         = $base
+        ApiURI          = $apiUri
         AuthMethod      = $AuthMethod
         User            = $User
         Token           = $Token

@@ -1,6 +1,6 @@
 # Get-EPMSet
 
-Lists the sets the session can see. API: `GET /EPM/API/Sets` (paged, limit 1000).
+Lists the sets the session can see. API: `GET /API/Sets` (paged, limit 1000).
 
 | Parameter | Description |
 | --- | --- |

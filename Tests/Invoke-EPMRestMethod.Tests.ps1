@@ -14,7 +14,7 @@ Describe 'Invoke-EPMRestMethod' {
             Invoke-EPMRestMethod -Method POST -Path 'Sets/s1/Endpoints/search' -Body @{ filter = '' } | Out-Null
         }
         Should -Invoke -ModuleName psEPM Invoke-RestMethod -Times 1 -Exactly -ParameterFilter {
-            $Uri -eq 'https://api.example.test/EPM/API/Sets/s1/Endpoints/search' -and
+            $Uri -eq 'https://api.example.test/API/Sets/s1/Endpoints/search' -and
             $Headers.Authorization -eq 'Bearer fake-token' -and
             $ContentType -eq 'application/json' -and
             $Body -eq '{"filter":""}'

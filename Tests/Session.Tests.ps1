@@ -28,10 +28,25 @@ Describe 'New-EPMSession' {
         It 'stores the session without exposing the token by default' {
             New-EPMSession -TenantId 'abc1234' -WebAppId 'webapp' -Credential $script:cred -BaseURI 'https://api.example.test/'
             $session = Get-EPMSession
-            $session.ApiURI | Should -Be 'https://api.example.test/EPM/API'
+            $session.ApiURI | Should -Be 'https://api.example.test/API'
             $session.AuthMethod | Should -Be 'IdentityClientCredentials'
             $session.PSObject.Properties.Name | Should -Not -Contain 'Token'
             (Get-EPMSession -IncludeToken).Token | Should -Be 'fake-access-token'
+        }
+
+        It 'uses /API on the regional API host' {
+            New-EPMSession -TenantId 'abc1234' -WebAppId 'webapp' -Credential $script:cred -BaseURI 'https://api-na.epm.cyberark.cloud'
+            (Get-EPMSession).ApiURI | Should -Be 'https://api-na.epm.cyberark.cloud/API'
+        }
+
+        It 'uses /EPM/API on a tenant manager host' {
+            New-EPMSession -TenantId 'abc1234' -WebAppId 'webapp' -Credential $script:cred -BaseURI 'https://na123.epm.cyberark.com'
+            (Get-EPMSession).ApiURI | Should -Be 'https://na123.epm.cyberark.com/EPM/API'
+        }
+
+        It 'keeps an explicit API path' {
+            New-EPMSession -TenantId 'abc1234' -WebAppId 'webapp' -Credential $script:cred -BaseURI 'https://na123.epm.cyberark.com/EPM/API'
+            (Get-EPMSession).ApiURI | Should -Be 'https://na123.epm.cyberark.com/EPM/API'
         }
     }
 

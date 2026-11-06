@@ -35,7 +35,7 @@ function New-EPMSession {
             Method      = 'POST'
             Headers     = @{ Authorization = 'Basic {0}' -f $basic }
             ContentType = 'application/x-www-form-urlencoded'
-            Body        = 'grant_type=client_credentials&scope=all'
+            Body        = 'grant_type=client_credentials'
             ErrorAction = 'Stop'
         }
         try {

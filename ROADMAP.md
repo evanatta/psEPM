@@ -2,7 +2,7 @@
 
 Status key: **Done** built and tested against a tenant. **Planned** not built yet. Routes marked *undocumented* work but are not in the public API reference and may change.
 
-All paths are under `<BaseURI>/EPM/API`.
+All paths are under `<BaseURI>/API` on a regional API host such as `https://api-na.epm.cyberark.cloud`. A tenant manager host uses `<BaseURI>/EPM/API`.
 
 ## Session
 
