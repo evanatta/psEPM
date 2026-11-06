@@ -61,6 +61,8 @@ Get-EPMPolicyAudit -SetId $setId -DateFrom (Get-Date).AddDays(-7) -EventType Blo
 Get-EPMPolicyAuditAggregation -SetId $setId -DateFrom (Get-Date).AddDays(-30)
 Get-EPMSignInAudit -SetId $setId -DateFrom (Get-Date).AddDays(-7) -First 50
 Get-EPMSignInAuditAggregation -SetId $setId -LoginResult $false
+Get-EPMAdminAudit -SetId $setId -DateFrom '2026-10-01T00:00:00Z' -First 100
+Get-EPMVideo -SetId $setId
 
 Get-EPMSession
 Close-EPMSession
@@ -112,6 +114,8 @@ New-EPMSession -Token $token -BaseURI 'https://api-na.epm.cyberark.cloud'
 | Get-EPMPolicyAuditAggregation | Searches aggregated policy audits, one row per application and event type |
 | Get-EPMSignInAudit | Searches endpoint sign-in audit events by date or filter |
 | Get-EPMSignInAuditAggregation | Searches aggregated sign-in audit events, with a login result filter |
+| Get-EPMAdminAudit | Gets the set admin audit for a date window |
+| Get-EPMVideo | Searches recorded session videos |
 | Get-EPMAgentPackage | Lists agent packages available to a set |
 | Get-EPMEndpointPackage | Lists agent packages available for endpoints in a set |
 | Get-EPMPackageConfiguration | Gets the installation configuration and key for a package |

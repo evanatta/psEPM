@@ -77,8 +77,8 @@ All paths are under `<BaseURI>/API` on a regional API host such as `https://api-
 | Get-EPMPolicyAuditAggregation | `POST /Sets/{SetId}/policyaudits/aggregations/search` | One row per application and event type. Never sends an empty filter. Cursor does not advance live | Done |
 | Get-EPMSignInAudit | `POST /Sets/{SetId}/signinaudits/search` | `-DateFrom`, `-DateTo`, cursor paging. No `-EventType` (400) | Done |
 | Get-EPMSignInAuditAggregation | `POST /Sets/{SetId}/signinaudits/aggregations/search` | `-LoginResult`. Never sends an empty filter | Done |
-| Get-EPMAdminAudit | `GET /Sets/{SetId}/AdminAudit` | `-DateFrom` required | Planned |
-| Get-EPMVideo | `POST /Sets/{SetId}/Videos/Search` | | Planned |
+| Get-EPMAdminAudit | `GET /Sets/{SetId}/AdminAudit` | deprecated in the reference; `DateFrom`/`DateTo` (case sensitive, optional), offset paging, `limit` max 500 | Done |
+| Get-EPMVideo | `POST /Sets/{SetId}/Videos/Search` | the reference says `GET`, which returns 405; cursor paging | Done |
 
 ## Application catalog
 
