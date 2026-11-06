@@ -42,7 +42,7 @@ The module layout and conventions are modeled on psPAS (https://github.com/pspet
 
 ## Decisions
 
-- No comments and no comment-based help in code files, by owner rule. Command help lives in `docs/commands/*.md`. A test fails if a code file contains a comment token.
+- No comments and no comment-based help in code files. Command help lives in `docs/commands/*.md`. A test fails if a code file contains a comment token.
 - Windows PowerShell 5.1 compatible: no ternary, no null-coalescing, no `ForEach-Object -Parallel`, no `-SkipCertificateCheck`.
 - Secrets come in as `PSCredential` or `SecureString`. The token lives only in module scope and is not shown by `Get-EPMSession` unless `-IncludeToken` is used.
 - Write commands will default to `ConfirmImpact = 'High'` for anything that moves, deletes, uninstalls, or upgrades endpoints.
