@@ -45,6 +45,7 @@
         'Get-EPMVideo',
         'Get-EPMApplicationCatalog',
         'Get-EPMFileInstance',
+        'New-EPMReport',
         'Get-EPMAgentPackage',
         'Get-EPMEndpointPackage',
         'Get-EPMPackageConfiguration',

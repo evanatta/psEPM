@@ -67,6 +67,8 @@ Get-EPMVideo -SetId $setId
 Get-EPMApplicationCatalog -SetId $setId -OperatingSystem Windows -First 100
 Get-EPMFileInstance -SetId $setId -DateFrom (Get-Date).AddDays(-30) -First 100
 
+New-EPMReport -SetId $setId -ReportId $reportId -Format CSV -OutFile .\report.csv -WhatIf
+
 Get-EPMSession
 Close-EPMSession
 ```
@@ -121,6 +123,7 @@ New-EPMSession -Token $token -BaseURI 'https://api-na.epm.cyberark.cloud'
 | Get-EPMVideo | Searches recorded session videos |
 | Get-EPMApplicationCatalog | Searches the application catalog (aggregated files) |
 | Get-EPMFileInstance | Searches raw file details (file instances on endpoints) |
+| New-EPMReport | Generates an existing report definition (undocumented route) |
 | Get-EPMAgentPackage | Lists agent packages available to a set |
 | Get-EPMEndpointPackage | Lists agent packages available for endpoints in a set |
 | Get-EPMPackageConfiguration | Gets the installation configuration and key for a package |

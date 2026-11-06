@@ -100,7 +100,7 @@ All paths are under `<BaseURI>/API` on a regional API host such as `https://api-
 
 | Command | API | Status |
 | --- | --- | --- |
-| New-EPMReport | `POST /Sets/{SetId}/Reports` *undocumented* | Planned |
+| New-EPMReport | `POST /Sets/{SetId}/Reports` *undocumented*; GET 405 and OPTIONS checked; generate not run, no known definition ID | Done |
 
 ## Module work
 
