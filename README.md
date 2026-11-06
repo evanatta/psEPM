@@ -59,6 +59,8 @@ Get-EPMEvent -SetId $setId -DateFrom (Get-Date).AddDays(-7) -EventType Elevation
 Get-EPMEventAggregation -SetId $setId -DateFrom (Get-Date).AddDays(-30) | Sort-Object totalEvents -Descending
 Get-EPMPolicyAudit -SetId $setId -DateFrom (Get-Date).AddDays(-7) -EventType Block -First 50
 Get-EPMPolicyAuditAggregation -SetId $setId -DateFrom (Get-Date).AddDays(-30)
+Get-EPMSignInAudit -SetId $setId -DateFrom (Get-Date).AddDays(-7) -First 50
+Get-EPMSignInAuditAggregation -SetId $setId -LoginResult $false
 
 Get-EPMSession
 Close-EPMSession
@@ -108,6 +110,8 @@ New-EPMSession -Token $token -BaseURI 'https://api-na.epm.cyberark.cloud'
 | Get-EPMEventAggregation | Searches aggregated events, one row per application and event type |
 | Get-EPMPolicyAudit | Searches policy audit events by date, event type, or filter |
 | Get-EPMPolicyAuditAggregation | Searches aggregated policy audits, one row per application and event type |
+| Get-EPMSignInAudit | Searches endpoint sign-in audit events by date or filter |
+| Get-EPMSignInAuditAggregation | Searches aggregated sign-in audit events, with a login result filter |
 | Get-EPMAgentPackage | Lists agent packages available to a set |
 | Get-EPMEndpointPackage | Lists agent packages available for endpoints in a set |
 | Get-EPMPackageConfiguration | Gets the installation configuration and key for a package |

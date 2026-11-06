@@ -39,6 +39,8 @@
         'Get-EPMEventAggregation',
         'Get-EPMPolicyAudit',
         'Get-EPMPolicyAuditAggregation',
+        'Get-EPMSignInAudit',
+        'Get-EPMSignInAuditAggregation',
         'Get-EPMAgentPackage',
         'Get-EPMEndpointPackage',
         'Get-EPMPackageConfiguration',

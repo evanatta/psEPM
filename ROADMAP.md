@@ -75,8 +75,8 @@ All paths are under `<BaseURI>/API` on a regional API host such as `https://api-
 | Get-EPMEventAggregation | `POST /Sets/{SetId}/events/aggregations/search` | One row per application and event type. Cursor does not advance live | Done |
 | Get-EPMPolicyAudit | `POST /Sets/{SetId}/policyaudits/search` | `-DateFrom`, `-DateTo`, `-EventType` (`IN`), cursor paging. No GET by ID exists | Done |
 | Get-EPMPolicyAuditAggregation | `POST /Sets/{SetId}/policyaudits/aggregations/search` | One row per application and event type. Never sends an empty filter. Cursor does not advance live | Done |
-| Get-EPMSignInAudit | `POST /Sets/{SetId}/signinaudits/search` | | Planned |
-| Get-EPMSignInAuditAggregation | `POST /Sets/{SetId}/signinaudits/aggregations/search` | | Planned |
+| Get-EPMSignInAudit | `POST /Sets/{SetId}/signinaudits/search` | `-DateFrom`, `-DateTo`, cursor paging. No `-EventType` (400) | Done |
+| Get-EPMSignInAuditAggregation | `POST /Sets/{SetId}/signinaudits/aggregations/search` | `-LoginResult`. Never sends an empty filter | Done |
 | Get-EPMAdminAudit | `GET /Sets/{SetId}/AdminAudit` | `-DateFrom` required | Planned |
 | Get-EPMVideo | `POST /Sets/{SetId}/Videos/Search` | | Planned |
 
