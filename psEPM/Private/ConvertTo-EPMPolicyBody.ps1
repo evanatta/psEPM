@@ -15,5 +15,5 @@ function ConvertTo-EPMPolicyBody {
         $hasType = $null -ne $Policy.PSObject.Properties['PolicyType']
         if (-not $hasType -and $null -ne $Policy.PSObject.Properties['Policy']) { $definition = $Policy.Policy }
     }
-    ConvertTo-EPMJson -InputObject $definition -ExcludeProperty 'SetId', 'PolicyId'
+    ConvertTo-EPMJson -InputObject $definition -ExcludeProperty 'SetId', 'PolicyId', 'ApplicationGroupId'
 }

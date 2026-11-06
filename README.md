@@ -45,6 +45,11 @@ $policy | Set-EPMPolicy -Description 'Inactive test, reviewed'
 $policy | Remove-EPMPolicy -WhatIf
 $policy | Remove-EPMPolicy
 
+Export-EPMPolicy -SetId $setId -GroupType All -OutFile .\policies.epmp
+$appGroup = New-EPMApplicationGroup -SetId $setId -Name 'Editors' -FileName 'notepad.exe' -Description 'Text editors'
+$appGroup | Set-EPMApplicationGroup -Description 'Approved text editors'
+$appGroup | Remove-EPMApplicationGroup
+
 Get-EPMSession
 Close-EPMSession
 ```
@@ -81,6 +86,11 @@ New-EPMSession -Token $token -BaseURI 'https://api-na.epm.cyberark.cloud'
 | New-EPMPolicy | Creates a policy, inactive by default |
 | Set-EPMPolicy | Updates a policy by merging fields or replacing the definition |
 | Remove-EPMPolicy | Deletes policies |
+| Export-EPMPolicy | Exports a set's policies as an .epmp file |
+| Get-EPMApplicationGroup | Searches application groups or gets one group's details |
+| New-EPMApplicationGroup | Creates an application group |
+| Set-EPMApplicationGroup | Updates an application group |
+| Remove-EPMApplicationGroup | Deletes application groups |
 | Get-EPMAgentPackage | Lists agent packages available to a set |
 | Get-EPMEndpointPackage | Lists agent packages available for endpoints in a set |
 | Get-EPMPackageConfiguration | Gets the installation configuration and key for a package |

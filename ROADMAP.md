@@ -58,10 +58,10 @@ All paths are under `<BaseURI>/API` on a regional API host such as `https://api-
 | New-EPMPolicy | `POST /Sets/{SetId}/Policies/Server` | file name body as in the examples, inactive by default; or a full definition | Done |
 | Set-EPMPolicy | `PUT /Sets/{SetId}/Policies/Server/{Id}` | full replace, no wrapper; merge reads first | Done |
 | Remove-EPMPolicy | `DELETE /Sets/{SetId}/Policies/Server/{Id}` | 204; GET by ID still answers until a second delete; ShouldProcess High | Done |
-| Export-EPMPolicy | `POST /Sets/{SetId}/Policies/Server/Export` | *undocumented* | Planned |
+| Export-EPMPolicy | `POST /Sets/{SetId}/Policies/Server/Export` | *undocumented*; Computer, User, All; `-OutFile` | Done |
 | Get-EPMPolicyElevation / Set-EPMPolicyElevation | `/Sets/{SetId}/Policies/Server/Elevate` | | Planned |
-| Get-EPMApplicationGroup | `POST .../Policies/ApplicationGroups/Search`, `GET .../{Id}` | | Planned |
-| New-, Set-, Remove-EPMApplicationGroup | `/Sets/{SetId}/Policies/ApplicationGroups` | | Planned |
+| Get-EPMApplicationGroup | `POST .../Policies/ApplicationGroups/Search`, `GET .../{Id}` | `PolicyName` filter | Done |
+| New-, Set-, Remove-EPMApplicationGroup | `/Sets/{SetId}/Policies/ApplicationGroups` | no `/Server` in the path; full replace on PUT; GET by ID answers until a second delete | Done |
 | Get-EPMAgentConfiguration | `POST .../Policies/AgentConfiguration/Search`, `GET .../{Id}`, `GET .../Default` | | Planned |
 | New-, Set-, Remove-EPMAgentConfiguration | `/Sets/{SetId}/Policies/AgentConfiguration` | | Planned |
 | Get-EPMThreatProtectionPolicy | *undocumented* | | Planned |
