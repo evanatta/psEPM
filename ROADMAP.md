@@ -84,8 +84,8 @@ All paths are under `<BaseURI>/API` on a regional API host such as `https://api-
 
 | Command | API | Status |
 | --- | --- | --- |
-| Get-EPMApplicationCatalog | `POST /Sets/{SetId}/Files/Aggregations/search` | Planned |
-| Get-EPMFileInstance | `POST /Sets/{SetId}/Files/FileInstances/Search` | Planned |
+| Get-EPMApplicationCatalog | `POST /Sets/{SetId}/Files/Aggregations/search` | Done |
+| Get-EPMFileInstance | `POST /Sets/{SetId}/Files/FileInstances/Search` | Done |
 
 ## Download center
 

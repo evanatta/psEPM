@@ -43,6 +43,8 @@
         'Get-EPMSignInAuditAggregation',
         'Get-EPMAdminAudit',
         'Get-EPMVideo',
+        'Get-EPMApplicationCatalog',
+        'Get-EPMFileInstance',
         'Get-EPMAgentPackage',
         'Get-EPMEndpointPackage',
         'Get-EPMPackageConfiguration',
