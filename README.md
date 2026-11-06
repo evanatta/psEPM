@@ -69,6 +69,11 @@ Get-EPMFileInstance -SetId $setId -DateFrom (Get-Date).AddDays(-30) -First 100
 
 New-EPMReport -SetId $setId -ReportId $reportId -Format CSV -OutFile .\report.csv -WhatIf
 
+Get-EPMEndpoint -SetId $setId -Filter 'name EQ "APITEST-PC"' | Update-EPMEndpoint -Platform Windows -Architecture x64 -Version $version -WhatIf
+Move-EPMEndpoint -SetId $setId -EndpointId $endpointId -TargetSetId $targetSetId -WhatIf
+Remove-EPMEndpoint -SetId $setId -EndpointId $endpointId -WhatIf
+Uninstall-EPMEndpoint -SetId $setId -EndpointId $endpointId -WhatIf
+
 Get-EPMSession
 Close-EPMSession
 ```
@@ -94,6 +99,10 @@ New-EPMSession -Token $token -BaseURI 'https://api-na.epm.cyberark.cloud'
 | Get-EPMEndpoint | Searches endpoints or gets one endpoint's details |
 | Get-EPMEndpointInventory | Gets one inventory section for many endpoints |
 | Get-EPMEndpointSummary | Counts endpoints by agent version and platform |
+| Update-EPMEndpoint | Upgrades agents to a published version |
+| Move-EPMEndpoint | Moves endpoints to another set |
+| Remove-EPMEndpoint | Deletes endpoint records |
+| Uninstall-EPMEndpoint | Sends an uninstall command to agents |
 | Get-EPMEndpointGroup | Searches endpoint groups |
 | Get-EPMEndpointGroupValue | Lists endpoint attribute values for dynamic group filters |
 | New-EPMEndpointGroup | Creates a static or dynamic endpoint group |

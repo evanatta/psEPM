@@ -31,10 +31,10 @@ All paths are under `<BaseURI>/API` on a regional API host such as `https://api-
 | Get-EPMEndpoint -EndpointId | `POST /Sets/{SetId}/Endpoints/{Id}/search` | `-InventoryType`; bad ID gives 500 | Done |
 | Get-EPMEndpointInventory | `POST /Sets/{SetId}/Endpoints/inventory/{Type}` | `filter` required, empty for all; array result; filter on `endpointId`, `id` gives 500 | Done |
 | Get-EPMEndpointSummary | `GET /Sets/{SetId}/Endpoints/Summary` | *undocumented* | Done |
-| Update-EPMEndpoint | `POST /Sets/{SetId}/Endpoints/upgrade` | ShouldProcess High | Planned |
-| Move-EPMEndpoint | `POST /Sets/{SetId}/Endpoints/moveset` | async; endpoint gets a new ID in the target set; ShouldProcess High | Planned |
-| Remove-EPMEndpoint | `POST /Sets/{SetId}/Endpoints/delete` | ShouldProcess High | Planned |
-| Uninstall-EPMEndpoint | `POST /Sets/{SetId}/Endpoints/uninstall` | ShouldProcess High | Planned |
+| Update-EPMEndpoint | `POST /Sets/{SetId}/Endpoints/upgrade` | ShouldProcess High; live tested with a filter that matches no endpoint | Done |
+| Move-EPMEndpoint | `POST /Sets/{SetId}/Endpoints/moveset` | async; endpoint gets a new ID in the target set; same-set target rejected; ShouldProcess High; live tested with a filter that matches no endpoint | Done |
+| Remove-EPMEndpoint | `POST /Sets/{SetId}/Endpoints/delete` | ShouldProcess High; live tested with a filter that matches no endpoint | Done |
+| Uninstall-EPMEndpoint | `POST /Sets/{SetId}/Endpoints/uninstall` | ShouldProcess High; live tested with a filter that matches no endpoint | Done |
 | Get-EPMComputer | `GET /Sets/{SetId}/Computers` | legacy; use Get-EPMEndpoint | Unavailable |
 | Get-EPMComputerGroup | `GET /Sets/{SetId}/ComputerGroups` | legacy; use endpoint groups | Unavailable |
 
