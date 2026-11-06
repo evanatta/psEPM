@@ -4,7 +4,7 @@ PowerShell module for the Endpoint Privilege Manager (EPM) REST API.
 
 API documentation: https://docs.cyberark.com/epm/latest/en/content/landingpages/lpdeveloper.htm
 
-Status: early scaffold. Session commands and three read commands work. See [ROADMAP.md](ROADMAP.md) for the planned command set and [DESIGN.md](DESIGN.md) for how the module is built.
+Session commands and three read commands work. See [ROADMAP.md](ROADMAP.md) for the planned command set and [DESIGN.md](DESIGN.md) for how the module is built.
 
 ## Requirements
 
@@ -14,7 +14,7 @@ Status: early scaffold. Session commands and three read commands work. See [ROAD
 ## Install
 
 ```powershell
-git clone <this repo>
+git clone https://github.com/evanatta/psEPM.git
 Import-Module ./psEPM/psEPM/psEPM.psd1
 ```
 
