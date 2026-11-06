@@ -89,12 +89,12 @@ All paths are under `<BaseURI>/EPM/API`.
 
 ## Download center
 
-| Command | API | Status |
-| --- | --- | --- |
-| Get-EPMAgentPackage | `POST /Sets/{SetId}/packages/search` | Planned |
-| Get-EPMEndpointPackage | `GET /Sets/{SetId}/Endpoints/Packages` | Planned |
-| Get-EPMPackageConfiguration | `GET /Sets/{SetId}/packages/configuration` | Planned |
-| Get-EPMPackageUrl | `GET /Sets/{SetId}/packages/{Id}/Url` | Planned |
+| Command | API | Notes | Status |
+| --- | --- | --- | --- |
+| Get-EPMAgentPackage | `POST /Sets/{SetId}/packages/search` | `filter` required, empty for all; not paged | Done |
+| Get-EPMEndpointPackage | `POST /Sets/{SetId}/Endpoints/Packages` | `{}` for all | Done |
+| Get-EPMPackageConfiguration | `POST /Sets/{SetId}/packages/configuration` | key in `installationKey` header; `-OutFile` | Done |
+| Get-EPMPackageUrl | `GET /Sets/{SetId}/packages/{Id}/Url` | signed S3 URL | Done |
 
 ## Reports
 

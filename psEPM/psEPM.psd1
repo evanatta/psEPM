@@ -14,7 +14,11 @@
         'Close-EPMSession',
         'Get-EPMSet',
         'Get-EPMEndpoint',
-        'Get-EPMPolicy'
+        'Get-EPMPolicy',
+        'Get-EPMAgentPackage',
+        'Get-EPMEndpointPackage',
+        'Get-EPMPackageConfiguration',
+        'Get-EPMPackageUrl'
     )
     CmdletsToExport      = @()
     VariablesToExport    = @()

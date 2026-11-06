@@ -4,7 +4,7 @@ PowerShell module for the Endpoint Privilege Manager (EPM) REST API.
 
 API documentation: https://docs.cyberark.com/epm/latest/en/content/landingpages/lpdeveloper.htm
 
-Session commands and three read commands work. See [ROADMAP.md](ROADMAP.md) for the planned command set and [DESIGN.md](DESIGN.md) for how the module is built.
+Session commands, set, endpoint and policy reads, and the download center commands work. See [ROADMAP.md](ROADMAP.md) for the planned command set and [DESIGN.md](DESIGN.md) for how the module is built.
 
 ## Requirements
 
@@ -28,6 +28,7 @@ Get-EPMSet
 Get-EPMSet -Name 'Lab*' | Get-EPMEndpoint -Platform Windows
 Get-EPMSet -Name 'Lab*' | Get-EPMEndpoint -First 1 | Get-EPMEndpoint -InventoryType OsInfo, Hardware
 Get-EPMSet -Name 'Lab*' | Get-EPMPolicy -Name 'Elevate'
+Get-EPMSet -Name 'Lab*' | Get-EPMAgentPackage -Platform Windows -Latest | Get-EPMPackageUrl
 
 Get-EPMSession
 Close-EPMSession
@@ -53,6 +54,10 @@ New-EPMSession -Token $token -BaseURI 'https://api-na.epm.cyberark.cloud'
 | Get-EPMSet | Lists sets |
 | Get-EPMEndpoint | Searches endpoints or gets one endpoint's details |
 | Get-EPMPolicy | Searches policies or gets one policy's details |
+| Get-EPMAgentPackage | Lists agent packages available to a set |
+| Get-EPMEndpointPackage | Lists agent packages available for endpoints in a set |
+| Get-EPMPackageConfiguration | Gets the installation configuration and key for a package |
+| Get-EPMPackageUrl | Gets a signed download URL for a package |
 
 Command help is in [docs/commands](docs/commands).
 

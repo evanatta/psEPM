@@ -12,6 +12,9 @@ function Invoke-EPMRestMethod {
         [object]$Body,
 
         [Parameter(Mandatory = $false)]
+        [switch]$IncludeResponseHeader,
+
+        [Parameter(Mandatory = $false)]
         [int]$MaxRetry = 5,
 
         [Parameter(Mandatory = $false)]
@@ -39,7 +42,15 @@ function Invoke-EPMRestMethod {
     $attempt = 0
     while ($true) {
         try {
-            $result = Invoke-RestMethod @request
+            if ($IncludeResponseHeader) {
+                $response = Invoke-WebRequest @request -UseBasicParsing
+                $result = [pscustomobject]@{
+                    Content = $response.Content
+                    Headers = $response.Headers
+                }
+            } else {
+                $result = Invoke-RestMethod @request
+            }
             $exported = $MyInvocation.MyCommand.Module.ExportedFunctions.Keys
             $caller = Get-PSCallStack | Where-Object { $exported -contains $_.Command } | Select-Object -First 1
             if ($caller) { $script:EPMSession.LastCommand = $caller.Command }
