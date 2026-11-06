@@ -4,7 +4,7 @@ PowerShell module for the Endpoint Privilege Manager (EPM) REST API.
 
 API documentation: https://docs.cyberark.com/epm/latest/en/content/landingpages/lpdeveloper.htm
 
-Session commands, set, endpoint and policy reads, and the download center commands work. See [ROADMAP.md](ROADMAP.md) for the planned command set and [DESIGN.md](DESIGN.md) for how the module is built.
+The module covers the documented EPM REST API: sessions, sets, endpoints, endpoint groups, policies, application groups, agent configurations, temporary elevation, events and audits, the application catalog, the download center, and reports. [ROADMAP.md](ROADMAP.md) lists every command and the routes that are Unavailable on the regional API host. [DESIGN.md](DESIGN.md) explains how the module is built, and [CHANGELOG.md](CHANGELOG.md) lists what each version contains.
 
 ## Requirements
 
@@ -17,6 +17,15 @@ Session commands, set, endpoint and policy reads, and the download center comman
 git clone https://github.com/evanatta/psEPM.git
 Import-Module ./psEPM/psEPM/psEPM.psd1
 ```
+
+To build a package folder, for example to copy into a folder on `$env:PSModulePath`:
+
+```powershell
+./build/Build.ps1
+Import-Module ./output/psEPM/0.1.0/psEPM.psd1
+```
+
+`build/Build.ps1` copies the manifest, module file, format file, `Public`, `Private`, and `LICENSE` to `output/psEPM/<version>`, replacing any earlier output, and runs `Test-ModuleManifest` on the result. `-OutputPath` changes the output folder. `-Publish` also runs `Publish-Module`, and only works when the `PSGALLERY_API_KEY` environment variable holds a NuGet API key. The module is not published to the PowerShell Gallery.
 
 ## Use
 
@@ -164,8 +173,12 @@ The tests use mocks and never call a tenant.
 
 ## CI
 
-The GitHub Actions workflow is in `.github/workflows/ci.yml`. It runs PSScriptAnalyzer and Pester on Windows PowerShell 5.1 and PowerShell 7.
+The GitHub Actions workflow is in `.github/workflows/ci.yml`. It runs PSScriptAnalyzer and Pester on Windows PowerShell 5.1 and PowerShell 7, then builds the package folder. It does not publish.
 
 ## Credit
 
 The layout and conventions of this module are inspired by [psPAS](https://github.com/pspete/psPAS) by Pete Maan, which is MIT licensed.
+
+## Contributing
+
+Use the issue templates for bugs and enhancements. Pull requests should include tests and a `CHANGELOG.md` entry under `Unreleased`.

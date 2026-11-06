@@ -108,5 +108,5 @@ All paths are under `<BaseURI>/API` on a regional API host such as `https://api-
 - Done: format file with default table views (`psEPM.Format.ps1xml`)
 - Done: filter builder with safe quoting (`ConvertTo-EPMFilter`)
 - Done: token expiry check from the JWT `exp` claim with automatic renewal for client credentials
-- CHANGELOG, issue and pull request templates
-- Build step that packages the module, and optional PowerShell Gallery publishing
+- Done: CHANGELOG, issue and pull request templates
+- Done: build step that packages the module (`build/Build.ps1`), and optional PowerShell Gallery publishing (`-Publish`). The module has been packaged, not published

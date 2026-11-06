@@ -47,3 +47,7 @@ jobs:
           $config.TestResult.Enabled = $true
           $config.Output.Verbosity = 'Detailed'
           Invoke-Pester -Configuration $config
+      - name: Package
+        run: |
+          $package = ./build/Build.ps1 -Verbose
+          $package | Format-List

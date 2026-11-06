@@ -66,8 +66,10 @@
     AliasesToExport      = @()
     PrivateData          = @{
         PSData = @{
-            Tags       = @('EPM', 'EndpointPrivilegeManager', 'REST', 'API')
-            LicenseUri = 'https://opensource.org/licenses/MIT'
+            Tags         = @('EPM', 'EndpointPrivilegeManager', 'REST', 'API')
+            LicenseUri   = 'https://opensource.org/licenses/MIT'
+            ProjectUri   = 'https://github.com/evanatta/psEPM'
+            ReleaseNotes = 'https://github.com/evanatta/psEPM/blob/main/CHANGELOG.md'
         }
     }
 }

@@ -13,13 +13,13 @@ The module layout and conventions are modeled on psPAS (https://github.com/pspet
 | One private REST wrapper (`Invoke-PASRestMethod`) that every command calls, sets JSON content type, parses API errors into a terminating error | `Invoke-EPMRestMethod`, plus throttle retry with exponential backoff |
 | Approved verbs and a product noun prefix (`Get-PASAccount`, `Add-PASSafeMember`) | `Verb-EPMNoun`, checked by a test |
 | Parameter sets per API variation, `ValueFromPipelineByPropertyName` on IDs so `Get-X | Get-Y` works | Same. Output objects carry `SetId`, `EndpointId`, `PolicyId` so they pipe into the next command |
-| `SupportsShouldProcess` with `ConfirmImpact` High on destructive commands | Every write command. Create and update use Medium, delete uses High. Move, Uninstall, and Upgrade will use High |
+| `SupportsShouldProcess` with `ConfirmImpact` High on destructive commands | Every write command. Create and update use Medium, delete uses High. Move, Uninstall, Upgrade, and elevation use High |
 | Custom type names on output and `.Formats.ps1xml` default views | Type names on every output (`psEPM.Set`, `psEPM.Endpoint`, `psEPM.Policy`, and others). `psEPM.Format.ps1xml`, loaded through `FormatsToProcess`, has default table views for the list types |
 | Query string and filter helpers (`ConvertTo-QueryString`, `ConvertTo-FilterString`) | `ConvertTo-EPMQueryString` (private) and `ConvertTo-EPMFilter` (exported) |
 | Pester tests per command with mocked REST calls | Same, Pester 5, no live calls in the repo |
 | Markdown command help in `docs/` (platyPS) | Markdown help in `docs/commands` |
-| CI runs PSScriptAnalyzer and Pester, then builds and publishes to the PowerShell Gallery | CI runs PSScriptAnalyzer and Pester on Windows PowerShell 5.1, PowerShell 7 on Windows and Linux. No publishing yet |
-| Issue and pull request templates, CHANGELOG driven versions | Planned |
+| CI runs PSScriptAnalyzer and Pester, then builds and publishes to the PowerShell Gallery | CI runs PSScriptAnalyzer and Pester on Windows PowerShell 5.1, PowerShell 7 on Windows and Linux, then runs `build/Build.ps1` to package the module. `build/Build.ps1 -Publish` publishes when `PSGALLERY_API_KEY` is set; CI does not publish |
+| Issue and pull request templates, CHANGELOG driven versions | Bug and enhancement issue templates, a pull request template, and `CHANGELOG.md`. The manifest version matches the latest changelog entry, and a test checks it |
 
 ## psPAS patterns that do not fit EPM
 
