@@ -47,8 +47,8 @@ All paths are under `<BaseURI>/API` on a regional API host such as `https://api-
 | New-EPMEndpointGroup | `POST /Sets/{SetId}/Endpoints/Groups` | Dynamic requires `-Filter` | Done |
 | Set-EPMEndpointGroup | `PUT /Sets/{SetId}/Endpoints/groups` | full replace; reads and merges first; type cannot change | Done |
 | Remove-EPMEndpointGroup | `POST /Sets/{SetId}/Endpoints/groups/delete` | by ID or filter; empty filter rejected; ShouldProcess High | Done |
-| Add-EPMEndpointGroupMember | `POST .../Groups/{GroupId}/members`, `.../members/ids`, `.../members/{Id}` | parameter sets for filter, IDs, one ID; JSON with `{}` body on single ID | Planned |
-| Remove-EPMEndpointGroupMember | `POST .../members/remove`, `.../members/ids/remove`, `DELETE .../members/{Id}` | ShouldProcess | Planned |
+| Add-EPMEndpointGroupMember | `POST .../Groups/{GroupId}/members`, `.../members/ids` | by filter or IDs; one ID uses the IDs route; add by filter is asynchronous | Done |
+| Remove-EPMEndpointGroupMember | `POST .../members/remove`, `.../members/ids/remove` | by filter or IDs; empty filter rejected; ShouldProcess High | Done |
 
 ## Policies
 

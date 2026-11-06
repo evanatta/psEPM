@@ -21,6 +21,8 @@
         'New-EPMEndpointGroup',
         'Set-EPMEndpointGroup',
         'Remove-EPMEndpointGroup',
+        'Add-EPMEndpointGroupMember',
+        'Remove-EPMEndpointGroupMember',
         'Get-EPMPolicy',
         'Get-EPMAgentPackage',
         'Get-EPMEndpointPackage',
