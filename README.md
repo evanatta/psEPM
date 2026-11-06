@@ -50,6 +50,11 @@ $appGroup = New-EPMApplicationGroup -SetId $setId -Name 'Editors' -FileName 'not
 $appGroup | Set-EPMApplicationGroup -Description 'Approved text editors'
 $appGroup | Remove-EPMApplicationGroup
 
+Get-EPMSet -Name 'Lab*' | Get-EPMAgentConfiguration
+Get-EPMAgentConfiguration -SetId $setId -Default
+Get-EPMSet -Name 'Lab*' | Get-EPMThreatProtectionPolicy | Where-Object IsActive
+Get-EPMSet -Name 'Lab*' | Get-EPMPolicyRecommendation
+
 Get-EPMSession
 Close-EPMSession
 ```
@@ -91,6 +96,9 @@ New-EPMSession -Token $token -BaseURI 'https://api-na.epm.cyberark.cloud'
 | New-EPMApplicationGroup | Creates an application group |
 | Set-EPMApplicationGroup | Updates an application group |
 | Remove-EPMApplicationGroup | Deletes application groups |
+| Get-EPMAgentConfiguration | Searches agent configurations, gets details, or gets the product default |
+| Get-EPMThreatProtectionPolicy | Lists threat protection policies |
+| Get-EPMPolicyRecommendation | Lists policy recommendations |
 | Get-EPMAgentPackage | Lists agent packages available to a set |
 | Get-EPMEndpointPackage | Lists agent packages available for endpoints in a set |
 | Get-EPMPackageConfiguration | Gets the installation configuration and key for a package |
