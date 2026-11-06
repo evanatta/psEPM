@@ -47,6 +47,10 @@ $policy | Remove-EPMPolicy
 
 Set-EPMPolicyElevation -SetId $setId -AggregatedBy $aggregatedBy -Elevation Approve -WhatIf
 
+New-EPMAgentConfiguration -SetId $setId -Name 'APITEST_AgentConfig' -EndpointId $endpointId -WhatIf
+Set-EPMAgentConfiguration -SetId $setId -AgentConfigurationId $endpointId -Description 'Lab computers' -WhatIf
+Remove-EPMAgentConfiguration -SetId $setId -AgentConfigurationId $endpointId -WhatIf
+
 Export-EPMPolicy -SetId $setId -GroupType All -OutFile .\policies.epmp
 $appGroup = New-EPMApplicationGroup -SetId $setId -Name 'Editors' -FileName 'notepad.exe' -Description 'Text editors'
 $appGroup | Set-EPMApplicationGroup -Description 'Approved text editors'
@@ -123,6 +127,9 @@ New-EPMSession -Token $token -BaseURI 'https://api-na.epm.cyberark.cloud'
 | Set-EPMApplicationGroup | Updates an application group |
 | Remove-EPMApplicationGroup | Deletes application groups |
 | Get-EPMAgentConfiguration | Searches agent configurations, gets details, or gets the product default |
+| New-EPMAgentConfiguration | Creates a computer-specific agent configuration |
+| Set-EPMAgentConfiguration | Updates an agent configuration by merging fields or replacing the definition |
+| Remove-EPMAgentConfiguration | Deletes computer-specific agent configurations |
 | Get-EPMThreatProtectionPolicy | Lists threat protection policies |
 | Get-EPMPolicyRecommendation | Lists policy recommendations |
 | Get-EPMEvent | Searches raw events by date, event type, or filter |

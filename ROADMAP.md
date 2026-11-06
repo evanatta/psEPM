@@ -64,7 +64,7 @@ All paths are under `<BaseURI>/API` on a regional API host such as `https://api-
 | Get-EPMApplicationGroup | `POST .../Policies/ApplicationGroups/Search`, `GET .../{Id}` | `PolicyName` filter | Done |
 | New-, Set-, Remove-EPMApplicationGroup | `/Sets/{SetId}/Policies/ApplicationGroups` | no `/Server` in the path; full replace on PUT; GET by ID answers until a second delete | Done |
 | Get-EPMAgentConfiguration | `POST .../Policies/AgentConfiguration/Search`, `GET .../{Id}`, `GET .../Default` | Default is the product template; list PolicyType 45, details 44 | Done |
-| New-, Set-, Remove-EPMAgentConfiguration | `/Sets/{SetId}/Policies/AgentConfiguration` | | Planned |
+| New-, Set-, Remove-EPMAgentConfiguration | `POST /Sets/{SetId}/Policies/AgentConfiguration`, `PUT` / `DELETE .../{Id}` | create needs a real computer (`ExecutorType` 1) and its ID becomes the endpoint ID; update reads and merges, then PUTs the bare definition; delete ShouldProcess High, refuses the General configuration, GET by ID can still answer after a delete. Unknown ID checked (PUT 400, GET and DELETE 404). No live create, update, or delete against a real computer was run: the test set has no computers and sets with computers were not written to | Done |
 | Get-EPMThreatProtectionPolicy | `GET /Sets/{SetId}/Policies/ThreatProtection` *undocumented* | plain array | Done |
 | Get-EPMPolicyRecommendation | `GET /Sets/{SetId}/Policies/Recommendations` *undocumented* | `Data` entries | Done |
 
