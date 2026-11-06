@@ -35,6 +35,7 @@ The module layout and conventions are modeled on psPAS (https://github.com/pspet
 
 - Base path is `<regional API URL>/API`, the same pattern as the example scripts. A tenant manager host (`*.epm.cyberark.com`) uses `/EPM/API`.
 - Paging uses `offset` and `limit`; `limit` max is 1000. `Invoke-EPMPagedRequest` keeps requesting until a page is short, and `-First` stops early.
+- Event searches page with `nextCursor` instead (`Invoke-EPMPagedRequest -Cursor`). The first cursor is `start`, and each returned cursor is URL-encoded. Paging stops at `filteredCount`, on an empty cursor, or when the API returns the same cursor or page again, and warns when fewer than `filteredCount` results came back.
 - Throttling returns HTTP 403 with error code `EPM050004E` (sometimes 429). The wrapper retries up to 5 times with 2, 4, 8, 16, 32 second waits.
 - API errors come back as `[{ "ErrorCode": "...", "ErrorMessage": "..." }]` and are turned into one readable terminating error. The last error is also saved on the session.
 - Filters are case sensitive. Lists use `IN a,b,c` without one big quoted string.

@@ -55,6 +55,9 @@ Get-EPMAgentConfiguration -SetId $setId -Default
 Get-EPMSet -Name 'Lab*' | Get-EPMThreatProtectionPolicy | Where-Object IsActive
 Get-EPMSet -Name 'Lab*' | Get-EPMPolicyRecommendation
 
+Get-EPMEvent -SetId $setId -DateFrom (Get-Date).AddDays(-7) -EventType ElevationRequest -First 50
+Get-EPMEventAggregation -SetId $setId -DateFrom (Get-Date).AddDays(-30) | Sort-Object totalEvents -Descending
+
 Get-EPMSession
 Close-EPMSession
 ```
@@ -99,6 +102,8 @@ New-EPMSession -Token $token -BaseURI 'https://api-na.epm.cyberark.cloud'
 | Get-EPMAgentConfiguration | Searches agent configurations, gets details, or gets the product default |
 | Get-EPMThreatProtectionPolicy | Lists threat protection policies |
 | Get-EPMPolicyRecommendation | Lists policy recommendations |
+| Get-EPMEvent | Searches raw events by date, event type, or filter |
+| Get-EPMEventAggregation | Searches aggregated events, one row per application and event type |
 | Get-EPMAgentPackage | Lists agent packages available to a set |
 | Get-EPMEndpointPackage | Lists agent packages available for endpoints in a set |
 | Get-EPMPackageConfiguration | Gets the installation configuration and key for a package |

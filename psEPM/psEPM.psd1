@@ -35,6 +35,8 @@
         'Get-EPMAgentConfiguration',
         'Get-EPMThreatProtectionPolicy',
         'Get-EPMPolicyRecommendation',
+        'Get-EPMEvent',
+        'Get-EPMEventAggregation',
         'Get-EPMAgentPackage',
         'Get-EPMEndpointPackage',
         'Get-EPMPackageConfiguration',

@@ -71,8 +71,8 @@ All paths are under `<BaseURI>/API` on a regional API host such as `https://api-
 
 | Command | API | Notes | Status |
 | --- | --- | --- | --- |
-| Get-EPMEvent | `POST /Sets/{SetId}/Events/Search`, `GET /Events/{Id}` | `-DateFrom`, `-EventType`, paging | Planned |
-| Get-EPMEventAggregation | `POST /Sets/{SetId}/Events/aggregations/search` | | Planned |
+| Get-EPMEvent | `POST /Sets/{SetId}/Events/Search` | `-DateFrom`, `-DateTo`, `-EventType` (`IN`), cursor paging. No GET by ID exists | Done |
+| Get-EPMEventAggregation | `POST /Sets/{SetId}/events/aggregations/search` | One row per application and event type. Cursor does not advance live | Done |
 | Get-EPMPolicyAudit | `POST /Sets/{SetId}/policyaudits/search` | | Planned |
 | Get-EPMPolicyAuditAggregation | `POST /Sets/{SetId}/policyaudits/aggregations/search` | | Planned |
 | Get-EPMSignInAudit | `POST /Sets/{SetId}/signinaudits/search` | | Planned |
