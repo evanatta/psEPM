@@ -2,6 +2,8 @@
 
 PowerShell module for the Endpoint Privilege Manager (EPM) REST API.
 
+> **Note:** This project is provided as-is. It is not supported by Palo Alto Networks nor an official Idira solution.
+
 API documentation: https://docs.cyberark.com/epm/latest/en/content/landingpages/lpdeveloper.htm
 
 The module covers the documented EPM REST API: sessions, sets, endpoints, endpoint groups, policies, application groups, agent configurations, temporary elevation, events and audits, the application catalog, the download center, and reports. [ROADMAP.md](ROADMAP.md) lists every command and the routes that are Unavailable on the regional API host. [DESIGN.md](DESIGN.md) explains how the module is built, and [CHANGELOG.md](CHANGELOG.md) lists what each version contains.
@@ -182,3 +184,9 @@ The layout and conventions of this module are inspired by [psPAS](https://github
 ## Contributing
 
 Use the issue templates for bugs and enhancements. Pull requests should include tests and a `CHANGELOG.md` entry under `Unreleased`.
+
+## Support
+
+This project is neither developed nor supported by Palo Alto Networks; any official support channels offered by the vendor are not appropriate for seeking help with the implementation or function of this project.
+
+Help should be sought by opening an issue in this repository.
