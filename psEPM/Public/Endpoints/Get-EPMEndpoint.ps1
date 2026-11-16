@@ -8,7 +8,7 @@ function Get-EPMEndpoint {
         [string]$EndpointId,
 
         [Parameter(Mandatory = $false, ParameterSetName = 'ById')]
-        [ValidateSet('OsInfo', 'Hardware', 'Network', 'DomainInfo', 'TimeAndDate', 'UserGroupsInfo', 'InstalledProgramsInfo')]
+        [ValidateSet('OsInfo', 'Hardware', 'Network', 'DomainInfo', 'TimeAndDate', 'UserGroups', 'InstalledPrograms', 'UserGroupsInfo', 'InstalledProgramsInfo')]
         [string[]]$InventoryType,
 
         [Parameter(Mandatory = $false, ParameterSetName = 'Search')]
@@ -40,7 +40,8 @@ function Get-EPMEndpoint {
         if ($PSCmdlet.ParameterSetName -eq 'ById') {
             $inventoryFilter = ''
             if ($InventoryType) {
-                $inventoryFilter = 'inventoryType IN {0}' -f ($InventoryType -join ',')
+                $types = @($InventoryType | ForEach-Object { if ($_ -eq 'UserGroupsInfo') { 'UserGroups' } elseif ($_ -eq 'InstalledProgramsInfo') { 'InstalledPrograms' } else { $_ } } | Select-Object -Unique)
+                $inventoryFilter = 'inventoryType IN {0}' -f ($types -join ',')
             }
             $item = Invoke-EPMRestMethod -Method POST -Path ('Sets/{0}/Endpoints/{1}/search' -f $SetId, $EndpointId) -Body @{ filter = $inventoryFilter }
             $item | Add-Member -MemberType NoteProperty -Name SetId -Value $SetId -Force

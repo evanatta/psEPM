@@ -14,6 +14,9 @@ function Get-EPMPolicy {
         [string]$Name,
 
         [Parameter(Mandatory = $false, ParameterSetName = 'Search')]
+        [switch]$All,
+
+        [Parameter(Mandatory = $false, ParameterSetName = 'Search')]
         [string]$SortBy = 'Name',
 
         [Parameter(Mandatory = $false, ParameterSetName = 'Search')]
@@ -37,7 +40,12 @@ function Get-EPMPolicy {
             return $item
         }
 
+        if ($All -and $Filter -match '(?i)\bPolicyType\b') {
+            $PSCmdlet.ThrowTerminatingError((New-Object System.Management.Automation.ErrorRecord((New-Object System.ArgumentException('-All cannot be combined with a PolicyType filter. The API rejects PolicyType and PolicyGroupType in the same filter.')), 'EPMAllWithPolicyType', 'InvalidArgument', $Filter)))
+        }
+
         $clauses = New-Object System.Collections.Generic.List[string]
+        if ($All) { $clauses.Add('PolicyGroupType EQ Computer') }
         if ($Filter) { $clauses.Add($Filter) }
         if ($Name) { $clauses.Add(('PolicyName CONTAINS "{0}"' -f $Name)) }
         $body = @{}

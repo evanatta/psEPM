@@ -62,6 +62,24 @@ Describe 'Get-EPMPolicy' {
         }
     }
 
+    It 'adds PolicyGroupType EQ Computer with -All' {
+        Mock -ModuleName psEPM Invoke-EPMRestMethod { [pscustomobject]@{ Policies = @() } }
+        Get-EPMPolicy -SetId 'set-1' -All
+        Should -Invoke -ModuleName psEPM Invoke-EPMRestMethod -ParameterFilter { $Body.filter -eq 'PolicyGroupType EQ Computer' }
+    }
+
+    It 'joins -All with -Name' {
+        Mock -ModuleName psEPM Invoke-EPMRestMethod { [pscustomobject]@{ Policies = @() } }
+        Get-EPMPolicy -SetId 'set-1' -All -Name 'Trust'
+        Should -Invoke -ModuleName psEPM Invoke-EPMRestMethod -ParameterFilter { $Body.filter -eq 'PolicyGroupType EQ Computer AND PolicyName CONTAINS "Trust"' }
+    }
+
+    It 'refuses -All with a PolicyType filter' {
+        Mock -ModuleName psEPM Invoke-EPMRestMethod { }
+        { Get-EPMPolicy -SetId 'set-1' -All -Filter 'PolicyType EQ 11' } | Should -Throw '*PolicyType*'
+        Should -Invoke -ModuleName psEPM Invoke-EPMRestMethod -Times 0 -Exactly
+    }
+
     It 'gets policy details by id from the pipeline' {
         Mock -ModuleName psEPM Invoke-EPMRestMethod { [pscustomobject]@{ Policy = @{ Name = 'Test' } } }
         $detail = [pscustomobject]@{ SetId = 'set-1'; PolicyId = 'p1' } | Get-EPMPolicy

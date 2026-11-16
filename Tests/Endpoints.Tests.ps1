@@ -98,3 +98,17 @@ Describe 'Get-EPMEndpointSummary' {
         @(Get-EPMEndpointSummary -SetId 'set-1').Count | Should -Be 0
     }
 }
+
+Describe 'Get-EPMEndpoint -InventoryType' {
+    It 'sends UserGroups and InstalledPrograms as the API names them' {
+        Mock -ModuleName psEPM Invoke-EPMRestMethod { [pscustomobject]@{ id = 'ep-1'; inventory = @{} } }
+        Get-EPMEndpoint -SetId 'set-1' -EndpointId 'ep-1' -InventoryType OsInfo, UserGroups, InstalledPrograms | Out-Null
+        Should -Invoke -ModuleName psEPM Invoke-EPMRestMethod -ParameterFilter { $Body.filter -eq 'inventoryType IN OsInfo,UserGroups,InstalledPrograms' }
+    }
+
+    It 'maps the section names UserGroupsInfo and InstalledProgramsInfo to the type names' {
+        Mock -ModuleName psEPM Invoke-EPMRestMethod { [pscustomobject]@{ id = 'ep-1'; inventory = @{} } }
+        Get-EPMEndpoint -SetId 'set-1' -EndpointId 'ep-1' -InventoryType UserGroupsInfo, InstalledProgramsInfo, UserGroups | Out-Null
+        Should -Invoke -ModuleName psEPM Invoke-EPMRestMethod -ParameterFilter { $Body.filter -eq 'inventoryType IN UserGroups,InstalledPrograms' }
+    }
+}

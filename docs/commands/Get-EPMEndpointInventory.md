@@ -28,6 +28,6 @@ Notes:
 - The `filter` body field is required. An empty string returns all endpoints. A body without `filter` returns HTTP 400.
 - The API reference shows the result as a single object. The API returns a JSON array of endpoints.
 - Filter on `endpointId`, as the reference says. `id EQ "<value>"` returns HTTP 500.
-- The inventory type names differ from `Get-EPMEndpoint -InventoryType`, which uses `UserGroupsInfo` and `InstalledProgramsInfo`. The returned section names are `osInfo`, `hardware`, `network`, `domainInfo`, `timeAndDate`, `userGroupsInfo`, and `installedProgramsInfo`.
+- `Get-EPMEndpoint -InventoryType` uses the same type names. The returned section names are `osInfo`, `hardware`, `network`, `domainInfo`, `timeAndDate`, `userGroupsInfo`, and `installedProgramsInfo`.
 - `InstalledPrograms` usually returns Windows endpoints only.
 - The API default page size is 100. This command requests 1000 per page and follows `offset` until a short page.
