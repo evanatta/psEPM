@@ -24,7 +24,7 @@ To build a package folder, for example to copy into a folder on `$env:PSModulePa
 
 ```powershell
 ./build/Build.ps1
-Import-Module ./output/psEPM/0.1.0/psEPM.psd1
+Import-Module ./output/psEPM/0.1.1/psEPM.psd1
 ```
 
 `build/Build.ps1` copies the manifest, module file, format file, `Public`, `Private`, and `LICENSE` to `output/psEPM/<version>`, replacing any earlier output, and runs `Test-ModuleManifest` on the result. `-OutputPath` changes the output folder. `-Publish` also runs `Publish-Module`, and only works when the `PSGALLERY_API_KEY` environment variable holds a NuGet API key. The module is not published to the PowerShell Gallery.
@@ -130,7 +130,7 @@ New-EPMSession -Token $token -BaseURI 'https://api-na.epm.cyberark.cloud'
 | Remove-EPMEndpointGroup | Deletes endpoint groups by ID or filter |
 | Add-EPMEndpointGroupMember | Adds endpoints to a static group by ID or filter |
 | Remove-EPMEndpointGroupMember | Removes endpoints from a static group by ID or filter |
-| Get-EPMPolicy | Searches policies or gets one policy's details |
+| Get-EPMPolicy | Searches policies or gets one policy's details; `-All` includes trusted sources and application groups |
 | New-EPMPolicy | Creates a policy, inactive by default |
 | Set-EPMPolicy | Updates a policy by merging fields or replacing the definition |
 | Remove-EPMPolicy | Deletes policies |

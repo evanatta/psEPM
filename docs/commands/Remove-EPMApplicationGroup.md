@@ -21,5 +21,6 @@ Remove-EPMApplicationGroup -SetId $setId -ApplicationGroupId $groupId
 
 Notes:
 
-- The API reference example uses `.../Policies/Server/ApplicationGroups/{Id}`. That returns HTTP 404 and does not delete. The working path has no `/Server`.
+- The path has no `/Server`. The API reference example used `.../Policies/Server/ApplicationGroups/{Id}` until November 2026; that path returns HTTP 404 and does not delete.
+- After a delete, `GET .../ApplicationGroups/{Id}` still returns the group, with `IsDeleted` set to `true`.
 - After a delete the group no longer appears in a name search, but `GET .../ApplicationGroups/{Id}` still returns it. A second delete also returns 204, after which `GET` returns HTTP 404 `EPM060001E`. A third delete returns 404. Use a name search to confirm a delete. The command sends one delete per ID.

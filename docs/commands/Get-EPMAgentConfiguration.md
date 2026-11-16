@@ -35,7 +35,7 @@ Get-EPMAgentConfiguration -SetId $setId -Default
 
 Notes:
 
-- The API reference URL for the default configuration repeats a segment (`.../AgentConfiguration/AgentConfiguration/Default`), which returns HTTP 404. The working path has one `AgentConfiguration` segment.
+- The default configuration path has one `AgentConfiguration` segment. The API reference used to repeat it (`.../AgentConfiguration/AgentConfiguration/Default`), which returns HTTP 404. The reference was corrected in November 2026.
 - `-Default` returns the product default template, not the set's current settings. Its `Id` is the set ID and its `Name` is "General configuration", like the set's real General configuration, but sections such as `AgentBehavior`, `DataCollection`, and `ExtendedProtection` differ. For the set's current settings, get the details of the General configuration row from the search.
 - Search rows report `PolicyType` 45. Details and the default report 44 for the same configuration.
 - The General configuration's ID is the set ID. A computer-specific configuration's ID is the endpoint ID.

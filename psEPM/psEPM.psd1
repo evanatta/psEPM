@@ -1,6 +1,6 @@
 @{
     RootModule           = 'psEPM.psm1'
-    ModuleVersion        = '0.1.0'
+    ModuleVersion        = '0.1.1'
     GUID                 = '2df18df8-f357-4415-8b10-5cac2904ccf3'
     Author               = 'EPM Scripts'
     Copyright            = '(c) EPM Scripts. MIT License.'

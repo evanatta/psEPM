@@ -4,6 +4,25 @@ All notable changes to psEPM are listed here. The format follows [Keep a Changel
 
 ## Unreleased
 
+## 0.1.1 - 2026-11-16
+
+Every command and route was retested against a tenant after the November 2026 API reference corrections.
+
+### Added
+
+- `Get-EPMPolicy -All` sends `PolicyGroupType EQ Computer`. Without it, a search with no filter leaves out trusted source policies, application groups, and the agent configuration, although `TotalCount` counts them. `-All` refuses a `PolicyType` filter, which the API rejects together with `PolicyGroupType`.
+
+### Fixed
+
+- `Get-EPMEndpoint -EndpointId -InventoryType` now sends `UserGroups` and `InstalledPrograms`. The `UserGroupsInfo` and `InstalledProgramsInfo` values it sent before return HTTP 500. Those two values are still accepted and are converted.
+
+### Changed
+
+- `Set-EPMEndpointGroup` still sends `PUT .../Endpoints/groups` with the ID in the body. The reference now documents `PUT .../Endpoints/groups/{Id}`, which returns HTTP 404.
+- Command help updated for the reference fixes to Get videos, Get default agent configuration, Delete endpoint groups, Delete static group members by IDs, and Delete application group.
+- Command help notes that the aggregated policy audit, file, and sign-in searches now accept an empty filter, that the single-member group routes need only the `Content-Type` header, and that deleted policies and application groups are still returned by ID with `IsDeleted: true`.
+- ROADMAP: `Remove-EPMVideo` is Planned (no video was available to confirm a delete), and `Set-EPMUserPassword` lists `PATCH`, as in the reference.
+
 ## 0.1.0 - 2026-11-06
 
 First version. Covers the documented EPM REST API. Routes that return 404 on the regional API host are listed as Unavailable in [ROADMAP.md](ROADMAP.md).

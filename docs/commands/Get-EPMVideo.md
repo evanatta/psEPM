@@ -23,8 +23,7 @@ Get-EPMSet -Name 'Lab*' | Get-EPMVideo -Filter 'startTime GE 2026-10-01T00:00:00
 Notes:
 
 - Video rows can hold user and computer names. Treat output as personal data.
-- The API page gives the method as `GET`. `GET` returns HTTP 405. The working method is `POST` with `Content-Type: application/json`. With no `-Filter` the body is `{}`. A blank `-Filter` is not sent.
-- The page lists body parameters for its `GET`. They are the `POST` body.
+- The method is `POST` with `Content-Type: application/json`, as the API page now shows. `GET` returns HTTP 405. With no `-Filter` the body is `{}`. A blank `-Filter` is not sent.
 - Filter fields from the API page include `videoId`, `computerName`, `application`, `startTime` (`GE`, `LE`, unquoted UTC time), `locationType`, and `videoStatus`. An unknown field returns HTTP 400 `EPM090005E` "Videos were not loaded, please try again".
 - Paging uses `nextCursor`, starting with `start`, URL-encoded, with the same stop rules as the event searches: stop at `filteredCount`, on an empty cursor, or when the same cursor or page comes back, with a warning if fewer than `filteredCount` came back. No set in testing held videos, so whether the cursor advances is unconfirmed. Keep `-PageSize` at 1000, the most the API returns in one request.
-- Deleting videos has no command.
+- Deleting videos has no command. `DELETE /Sets/{SetId}/Videos` answers (HTTP 404 for an unknown `videoId`, HTTP 400 `EPM090006E` for an empty filter), but no test set held a video, so a delete has not been confirmed.

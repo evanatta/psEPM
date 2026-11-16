@@ -24,5 +24,5 @@ Get-EPMEndpointGroup -SetId $setId -Name 'Old' | Remove-EPMEndpointGroup
 
 Notes:
 
-- The API reference is wrong. Its URL table shows `POST .../Endpoints/groups`, which is the create call, and its example shows `DELETE .../Endpoints/groups`, which returns HTTP 405. The working call is `POST .../Endpoints/groups/delete`.
+- The call is `POST .../Endpoints/groups/delete`, as the API reference shows since November 2026. The older reference showed `POST .../Endpoints/groups` (the create call) and `DELETE .../Endpoints/groups`, which returns HTTP 405.
 - A filter that matches nothing returns HTTP 200 with an empty `appliedIds`.

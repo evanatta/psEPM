@@ -34,4 +34,4 @@ Notes:
 - Filter on `id`, not `endpointId`. `endpointId EQ` returns HTTP 500 on the member APIs.
 - An endpoint that is already a member is returned again and is not added twice.
 - The API also has `includeAll` to add every endpoint in the set. This command does not send it.
-- The single-endpoint route `POST .../members/{EndpointId}` returns an empty body and requires `Content-Type: application/json` with a `{}` body (HTTP 415 without it). This command uses the IDs route instead, which returns the added IDs.
+- The single-endpoint route `POST .../members/{EndpointId}` returns an empty body and needs a `Content-Type: application/json` header (HTTP 415 without it; a `{}` body also works). This command uses the IDs route instead, which returns the added IDs.

@@ -29,7 +29,7 @@ Get-EPMEndpoint -SetId $setId -Name 'PC0' | Remove-EPMEndpointGroupMember -Group
 Notes:
 
 - These APIs apply to static groups.
-- The API reference example for removing by IDs sends `DELETE .../members/ids` with a bare JSON array. That returns HTTP 400 ("Invalid UUID string: ids"). The URL table route `POST .../members/ids/remove` with `membersIds` is the one that works.
-- The single-endpoint route `DELETE .../members/{EndpointId}` requires `Content-Type: application/json` with a `{}` body (HTTP 415 without it) and returns an empty body. This command uses the IDs route instead.
+- Removing by IDs is `POST .../members/ids/remove` with `membersIds`, as the API reference example shows since November 2026. The older example, `DELETE .../members/ids` with a bare JSON array, returns HTTP 400 ("Invalid UUID string: ids").
+- The single-endpoint route `DELETE .../members/{EndpointId}` needs a `Content-Type: application/json` header (HTTP 415 without it; a `{}` body also works) and returns an empty body. This command uses the IDs route instead.
 - Filter on `id`, not `endpointId`. `endpointId EQ` returns HTTP 500.
 - Remove by filter acts on current members only. Members added by filter a moment earlier may not be there yet, because add by filter is asynchronous.

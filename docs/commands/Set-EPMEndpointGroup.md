@@ -25,7 +25,7 @@ Get-EPMEndpointGroup -SetId $setId -Name 'Lab' | Set-EPMEndpointGroup -Descripti
 
 Notes:
 
-- The API reference examples send PUT to `.../groups/<GroupId>/members/ids`, which returns HTTP 405. The URL table path above is the one that works.
+- Since November 2026 the API reference shows `PUT .../Endpoints/groups/<GroupId>`, in the URL table and the examples. That path returns HTTP 404 ("No static resource"), with or without `id` in the body. The older example path, `.../groups/<GroupId>/members/ids`, returns HTTP 405. `PUT .../Endpoints/groups` with `id` in the body is the one that works (checked 2026-11-16).
 - The API needs `id`, `type`, and `name` (HTTP 400 without them). An omitted `description` is cleared. A dynamic group sent without `filter` returns HTTP 500.
 - The group type cannot be changed. Changing Static to Dynamic returns HTTP 500, so the command has no `-Type` parameter. Create a new group instead.
 - An unknown group ID returns HTTP 500 from the API. The command checks the group exists first and reports it as not found.

@@ -1,6 +1,6 @@
 # Roadmap
 
-Status key: **Done** built and tested against a tenant. **Planned** not built yet. **Unavailable** the route returns 404 on the regional API host (`/API` and `/EPM/API`, GET and OPTIONS, checked November 2026), so no command is planned until it is reachable. Routes marked *undocumented* work but are not in the public API reference and may change.
+Status key: **Done** built and tested against a tenant. **Planned** not built yet. **Unavailable** the route returns 404 on the regional API host (`/API` and `/EPM/API`, GET and OPTIONS, checked November 2026), so no command is planned until it is reachable. Every Done route was retested against a tenant on 2026-11-16. Routes marked *undocumented* work but are not in the public API reference and may change.
 
 All paths are under `<BaseURI>/API` on a regional API host such as `https://api-na.epm.cyberark.cloud`. A tenant manager host uses `<BaseURI>/EPM/API`.
 
@@ -21,7 +21,7 @@ All paths are under `<BaseURI>/API` on a regional API host such as `https://api-
 | Get-EPMAccountUser | `GET /Account/Users` | the reference only documents `POST` (create user) | Unavailable |
 | Add-EPMAccountUserSet | `POST /Account/Users/Bind` | GET and OPTIONS return 404 on `/API` and `/EPM/API` (checked November 2026); no POST was sent | Unavailable |
 | Get-EPMAccountAdminAudit | `GET /Account/AdminAudit` | deprecated in the reference; use SIEM integration | Unavailable |
-| Set-EPMUserPassword | `POST /Users/Me/ChangePassword` | legacy auth only | Unavailable |
+| Set-EPMUserPassword | `PATCH /Users/Me/ChangePassword` | legacy auth only | Unavailable |
 
 ## Endpoints
 
@@ -45,7 +45,7 @@ All paths are under `<BaseURI>/API` on a regional API host such as `https://api-
 | Get-EPMEndpointGroup | `POST /v2/Sets/{SetId}/Endpoints/groups/search` | v2 preferred, v1 on 404; `filter` required, empty for all; no member list | Done |
 | Get-EPMEndpointGroupValue | `POST /Sets/{SetId}/Endpoints/Groups/values/search` | `entity EQ <name>`; array of `{ value }` | Done |
 | New-EPMEndpointGroup | `POST /Sets/{SetId}/Endpoints/Groups` | Dynamic requires `-Filter` | Done |
-| Set-EPMEndpointGroup | `PUT /Sets/{SetId}/Endpoints/groups` | full replace; reads and merges first; type cannot change | Done |
+| Set-EPMEndpointGroup | `PUT /Sets/{SetId}/Endpoints/groups` | full replace; reads and merges first; type cannot change. The reference now shows `PUT .../groups/{Id}`, which returns 404 (checked 2026-11-16), so the module keeps the ID in the body | Done |
 | Remove-EPMEndpointGroup | `POST /Sets/{SetId}/Endpoints/groups/delete` | by ID or filter; empty filter rejected; ShouldProcess High | Done |
 | Add-EPMEndpointGroupMember | `POST .../Groups/{GroupId}/members`, `.../members/ids` | by filter or IDs; one ID uses the IDs route; add by filter is asynchronous | Done |
 | Remove-EPMEndpointGroupMember | `POST .../members/remove`, `.../members/ids/remove` | by filter or IDs; empty filter rejected; ShouldProcess High | Done |
@@ -54,15 +54,15 @@ All paths are under `<BaseURI>/API` on a regional API host such as `https://api-
 
 | Command | API | Notes | Status |
 | --- | --- | --- | --- |
-| Get-EPMPolicy | `POST /Sets/{SetId}/Policies/Server/Search`, `GET .../Server/{Id}` | empty body for all | Done |
+| Get-EPMPolicy | `POST /Sets/{SetId}/Policies/Server/Search`, `GET .../Server/{Id}` | an empty body leaves out trusted sources, application groups and the agent configuration; `-All` sends `PolicyGroupType EQ Computer` for everything | Done |
 | New-EPMPolicy | `POST /Sets/{SetId}/Policies/Server` | file name body as in the examples, inactive by default; or a full definition | Done |
 | Set-EPMPolicy | `PUT /Sets/{SetId}/Policies/Server/{Id}` | full replace, no wrapper; merge reads first | Done |
-| Remove-EPMPolicy | `DELETE /Sets/{SetId}/Policies/Server/{Id}` | 204; GET by ID still answers until a second delete; ShouldProcess High | Done |
+| Remove-EPMPolicy | `DELETE /Sets/{SetId}/Policies/Server/{Id}` | 204; GET by ID still answers with `IsDeleted: true`; a second delete also returns 204; ShouldProcess High | Done |
 | Export-EPMPolicy | `POST /Sets/{SetId}/Policies/Server/Export` | *undocumented*; Computer, User, All; `-OutFile` | Done |
 | Set-EPMPolicyElevation | `POST` (approve) / `DELETE` (reject) `/Sets/{SetId}/Policies/Server/Elevate` | `Filter` body as in the examples; `SendEmail` false by default; ShouldProcess High; a fake request returns 400; no live approve or reject of a real request has been run | Done |
 | Get-EPMPolicyElevation | `GET /Sets/{SetId}/Policies/Server/Elevate` | no documented GET; GET returns 400 (checked November 2026); use `Get-EPMEvent -EventType ElevationRequest` | Unavailable |
 | Get-EPMApplicationGroup | `POST .../Policies/ApplicationGroups/Search`, `GET .../{Id}` | `PolicyName` filter | Done |
-| New-, Set-, Remove-EPMApplicationGroup | `/Sets/{SetId}/Policies/ApplicationGroups` | no `/Server` in the path; full replace on PUT; GET by ID answers until a second delete | Done |
+| New-, Set-, Remove-EPMApplicationGroup | `/Sets/{SetId}/Policies/ApplicationGroups` | no `/Server` in the path; full replace on PUT; GET by ID still answers with `IsDeleted: true` after a delete | Done |
 | Get-EPMAgentConfiguration | `POST .../Policies/AgentConfiguration/Search`, `GET .../{Id}`, `GET .../Default` | Default is the product template; list PolicyType 45, details 44 | Done |
 | New-, Set-, Remove-EPMAgentConfiguration | `POST /Sets/{SetId}/Policies/AgentConfiguration`, `PUT` / `DELETE .../{Id}` | create needs a real computer (`ExecutorType` 1) and its ID becomes the endpoint ID; update reads and merges, then PUTs the bare definition; delete ShouldProcess High, refuses the General configuration, GET by ID can still answer after a delete. Unknown ID checked (PUT 400, GET and DELETE 404). No live create, update, or delete against a real computer was run: the test set has no computers and sets with computers were not written to | Done |
 | Get-EPMThreatProtectionPolicy | `GET /Sets/{SetId}/Policies/ThreatProtection` *undocumented* | plain array | Done |
@@ -79,7 +79,8 @@ All paths are under `<BaseURI>/API` on a regional API host such as `https://api-
 | Get-EPMSignInAudit | `POST /Sets/{SetId}/signinaudits/search` | `-DateFrom`, `-DateTo`, cursor paging. No `-EventType` (400) | Done |
 | Get-EPMSignInAuditAggregation | `POST /Sets/{SetId}/signinaudits/aggregations/search` | `-LoginResult`. Never sends an empty filter | Done |
 | Get-EPMAdminAudit | `GET /Sets/{SetId}/AdminAudit` | deprecated in the reference; `DateFrom`/`DateTo` (case sensitive, optional), offset paging, `limit` max 500 | Done |
-| Get-EPMVideo | `POST /Sets/{SetId}/Videos/Search` | the reference says `GET`, which returns 405; cursor paging | Done |
+| Get-EPMVideo | `POST /Sets/{SetId}/Videos/Search` | `GET` returns 405; the reference shows `POST` since November 2026; cursor paging | Done |
+| Remove-EPMVideo | `DELETE /Sets/{SetId}/Videos` | `filter` `videoId IN ...`; an unknown ID returns 404 and an empty filter 400 `EPM090006E`, but no set had a video to delete, so a delete is not confirmed | Planned |
 
 ## Application catalog
 
